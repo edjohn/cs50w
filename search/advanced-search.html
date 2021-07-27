@@ -7,10 +7,34 @@
         <title>Google Advanced Search</title>
     </head>
     <body>
-        <form action="https://google.com/advanced_search">
-            <input type="text" name="q">
-            <input type="submit" value="Google Search">
-        </form>
+        <div class="container-fluid vh-100 d-flex flex-column">
+            <div class="row justify-content-start">
+                <div class="col-1 my-3 ms-1">
+                    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" class="img-fluid">
+                </div>
+            </div>
+            <span class="row ms-3 text-danger fs-5 my-3">
+                Advanced Search
+            </span><hr/>
+            <div class="row ms-4 justify-content-start">
+                <span class="col-2">
+                Find pages with...
+                </span>
+                <span class="col-7 text-end text-secondary fw-bold">
+                    To do this in the search box
+                </span>
+            </div>
+            <div class="row justify-content-start mt-3 ms-4">
+                <label class="col-2 col-form-label px-0">all these words:</label>
+                <form action="https://google.com/advanced_search" class="col">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="text" name="q" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
 
