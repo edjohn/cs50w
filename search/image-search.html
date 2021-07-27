@@ -7,35 +7,37 @@
         <title>Search</title>
     </head>
     <body>
-        <div class="container-fluid vh-100">
-            <header class="row align-items-center justify-content-end text-center mt-3 me-3">
-                <div class="col-1">
+        <div class="container-fluid d-flex flex-column vh-100">
+            <header class="row h-25 justify-content-end text-center mt-3 me-3">
+                <a href="google-search.html" class="col-1 link-primary">
                     Search
-                </div>
-                <div class="col-1">
+                </a>
+                <a href="advanced-search.html" class="col-1 link-primary">
                     Advanced Search
-                </div>
+                </a>
             </header>
-            <section class="row justify-content-center">
-                <div class="col-3">
-                    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" class="img-fluid">
+            <section>
+                <div class="row justify-content-center">
+                    <div class="col-2 text-end text-primary">
+                        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" class="img-fluid">
+                        <span>Images</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <form action="https://google.com/search">
+                        <div class="row justify-content-center my-3">
+                            <div class="col-4">
+                                <input type="text" name="q" class="form-control rounded-pill">
+                                <input type="hidden" name="tbm" value="isch">
+                            </div>
+                        </div>
+                        <div class="row my-4 row-cols-2 justify-content-center">
+                                <button class="col-1 btn mx-1 btn-light" type="submit" value="Google Search">Google Search</button>
+                                <button class="col-1 btn mx-1 btn-light" type="submit" name="btnI" value="I'm Feeling Lucky">I'm Feeling Lucky</button>
+                        </div>
+                    </form>
                 </div>
             </section>
-            <span class="row justify-content-center text-end">
-                <p class="col-2 text-primary">Images</p>
-            </span>
-            <div class="row text-center search">
-                <form action="https://google.com/search">
-                    <div class="row justify-content-center my-3">
-                        <input type="text" name="q" class="form-control rounded-pill">
-                        <input type="hidden" name="tbm" value="isch">
-                    </div>
-                    <div class="row my-4 row-cols-2 justify-content-center">
-                            <button class="col-1 btn mx-1 btn-light" type="submit" value="Google Search">Google Search</button>
-                            <button class="col-1 btn mx-1 btn-light" type="submit" name="btnI" value="I'm Feeling Lucky">I'm Feeling Lucky</button>
-                    </div>
-                </form>
-            </div>
         </div>
     </body>
 </html>
