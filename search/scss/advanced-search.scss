@@ -1,0 +1,26 @@
+@import "../bootstrap-5.0.2/scss/bootstrap.scss";
+
+.search-term-form-group {
+    section {
+    @extend .row;
+    @extend .mt-3;
+    @extend .ms-4;
+        label {
+            @extend .col-2;
+            @extend .col-form-label;
+        }
+        div {
+            @extend .col-4;
+            input {
+                @extend .form-control;
+                @extend .form-control-sm;
+            }
+        }
+        span {
+            @extend .col-3;
+            @extend .col-form-label;
+            @extend .fw-light;
+            @extend .text-secondary;
+        }
+    }
+}
