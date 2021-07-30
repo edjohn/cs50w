@@ -14,10 +14,10 @@
                     <div class="col-1 my-3 ms-3">
                         <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" class="img-fluid">
                     </div>
-                    <div class="col my-3">
-                        <div class="row justify-content-end align-items-center">
-                            <a href="google-search.html" class="col-1">Google Search</a>
-                            <a href="image-search.html" class="col-1">Image Search</a>
+                    <div class="col">
+                        <div class="row mt-3 me-3 justify-content-end align-items-center">
+                            <a href="google-search.html" class="col-auto p-0 me-5">Google Search</a>
+                            <a href="image-search.html" class="col-auto p-0">Image Search</a>
                         </div>
                     </div>
                 </div>
@@ -25,49 +25,43 @@
                     Advanced Search
                 </span><hr/>
             </header>
-            <body>
-                <div class="row mt-3 ms-4">
-                    <span class="col-1">
-                    Find pages with...
-                    </span>
-                    <span class="col-3 offset-5 text-secondary fw-bold">
-                        To do this in the search box
-                    </span>
-                </div>
-                <form action="https://google.com/search" class="search-term-form-group">
-                    <section>
-                        <label>all these words:</label>
-                        <div>
-                            <input type="text" name="q">
-                        </div>
-                        <span>Type the important words: tricolor rat terrier</span>
-                    </section>
-                    <section>
-                        <label>this exact word or phrase:</label>
-                        <div>
-                            <input type="text" name="as_epq">
-                        </div>
-                        <span>Put exact words in quotes: "rat terrier"</span>
-                    </section>
-                    <section>
-                        <label>any of these words:</label>
-                        <div>
-                            <input type="text" name="as_oq">
-                        </div>
-                        <span>Type OR between all the words you want: miniature OR standard</span>
-                    </section>
-                    <section>
-                        <label>none of these words:</label>
-                        <div>
-                            <input type="text" name="as_eq">
-                        </div>
-                        <span>Put a minus sign just before words you don't want: -rodent, -"Jack Russell"</span>
-                    </section>
-                    <div class="row ms-1 mt-3">
-                        <button class="col-1 offset-5 btn btn-primary" type="submit" value="Google Search">Advanced Search</button>
+            <div class="row mt-3 ms-4">
+                <span class="col-1">Find pages with...</span>
+                <span class="col-3 offset-5 text-secondary fw-bold">To do this in the search box</span>
+            </div>
+            <form action="https://google.com/search" class="search-term-form-group">
+                <section>
+                    <label>all these words:</label>
+                    <div>
+                        <input type="text" name="q">
                     </div>
-                </form>
-            </body>
+                    <span>Type the important words: tricolor rat terrier</span>
+                </section>
+                <section>
+                    <label>this exact word or phrase:</label>
+                    <div>
+                        <input type="text" name="as_epq">
+                    </div>
+                    <span>Put exact words in quotes: "rat terrier"</span>
+                </section>
+                <section>
+                    <label>any of these words:</label>
+                    <div>
+                        <input type="text" name="as_oq">
+                    </div>
+                    <span>Type OR between all the words you want: miniature OR standard</span>
+                </section>
+                <section>
+                    <label>none of these words:</label>
+                    <div>
+                        <input type="text" name="as_eq">
+                    </div>
+                    <span>Put a minus sign just before words you don't want: -rodent, -"Jack Russell"</span>
+                </section>
+                <div class="row ms-1 mt-3">
+                    <button class="col-1 offset-5 btn btn-primary" type="submit" value="Google Search">Advanced Search</button>
+                </div>
+            </form>
         </div>
     </body>
 </html>
