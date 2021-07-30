@@ -898,12 +898,12 @@ progress {
   width: 16.66666667%;
 }
 
-.col-3, .search-term-form-group section span {
+.col-3 {
   flex: 0 0 auto;
   width: 25%;
 }
 
-.col-4, .search-term-form-group section div {
+.col-4, .search-term-form-group section span, .search-term-form-group section div {
   flex: 0 0 auto;
   width: 33.33333333%;
 }
