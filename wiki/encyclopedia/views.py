@@ -4,6 +4,7 @@ from django import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from random import choice
+from markdown2 import Markdown
 
 from . import util
 
@@ -20,9 +21,12 @@ def index(request):
     })
 
 def entry(request, title):
+    content = util.get_entry(title)
+    markdowner = Markdown()
+    content = markdowner.convert(content)
     return render(request, "wiki/entry.html", {
         "title": title.capitalize(),
-        "content": util.get_entry(title),
+        "content": content,
         "entry_exists": util.get_entry(title) != None
     })
 
@@ -85,10 +89,6 @@ def random(request):
     entries = util.list_entries()
     entry_name = choice(entries)
     return HttpResponseRedirect(reverse('encyclopedia:wiki') + entry_name)
-
-    
-
-
         
 
 

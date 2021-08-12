@@ -6,7 +6,7 @@
 
 {% block body %}
     {% if entry_exists %}
-    {{ content }}
+    {{ content|safe }}
     <a href="{% url 'encyclopedia:wiki' %}{{ title }}/edit"><p>Edit</p></a>
     {% else %}
     The requested page could not be found
