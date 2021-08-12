@@ -10,6 +10,9 @@ class PageForm(forms.Form):
     title = forms.CharField()
     description = forms.CharField(widget=Textarea)
 
+class EditForm(forms.Form):
+    description = forms.CharField(widget=Textarea)
+
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
@@ -56,6 +59,28 @@ def create(request):
     return render(request, "encyclopedia/create.html", {
         "form": PageForm()
     })
+
+def edit(request, title):
+    if request.method == "POST":
+        form = EditForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data["description"]
+            util.save_entry(title, description)
+            return HttpResponseRedirect(reverse('encyclopedia:wiki') + title)
+        else:
+            return render(request, "wiki/edit.html", {
+                "form": form,
+                "title": title
+            })
+    else:
+        form = EditForm()
+        form.fields['description'].initial = util.get_entry(title)
+        return render(request, 'wiki/edit.html', {
+            "form": form,
+            "title": title
+            })
+
+    
 
 
         

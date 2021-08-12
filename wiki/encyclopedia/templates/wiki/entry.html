@@ -6,8 +6,9 @@
 
 {% block body %}
     {% if entry_exists %}
-    <p>{{ content }}</p>
+    {{ content }}
+    <a href="{% url 'encyclopedia:wiki' %}{{ title }}/edit"><p>Edit</p></a>
     {% else %}
-    <p>The requested page could not be found</p>
+    The requested page could not be found
     {% endif %}
 {% endblock %}
