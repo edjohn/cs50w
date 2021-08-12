@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from random import choice
 
 from . import util
 
@@ -79,6 +80,11 @@ def edit(request, title):
             "form": form,
             "title": title
             })
+
+def random(request):
+    entries = util.list_entries()
+    entry_name = choice(entries)
+    return HttpResponseRedirect(reverse('encyclopedia:wiki') + entry_name)
 
     
 
