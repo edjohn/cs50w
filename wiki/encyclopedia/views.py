@@ -31,16 +31,17 @@ def entry(request, title):
     })
 
 def search(request):
-    query = request.GET['q'].lower()
-    entries = (map(lambda x: x.lower(), util.list_entries()))
+    formatted_query = request.GET['q'].lower()
+    entries = util.list_entries()
     results = []
     for item in entries:
-        if query == item:
+        formatted_item = item.lower()
+        if formatted_query == formatted_item:
             return entry(request, query)
-        if query in item:
+        if formatted_query in formatted_item:
             results.append(item)
     return render(request, "encyclopedia/search.html", {
-        "results": (map(lambda x: x.capitalize(), results))
+        "results": results
     })
         
 def create(request):
