@@ -1,4 +1,4 @@
-from django.forms.widgets import Textarea
+from django.forms.widgets import Textarea, TextInput
 from django.shortcuts import render
 from django import forms
 from django.http import HttpResponseRedirect
@@ -8,12 +8,12 @@ from markdown2 import Markdown
 
 from . import util
 
-class PageForm(forms.Form):
-    title = forms.CharField()
-    description = forms.CharField(widget=Textarea)
-
 class EditForm(forms.Form):
-    description = forms.CharField(widget=Textarea)
+    description = forms.CharField(widget=Textarea(attrs={'class': 'form-control'}))
+
+class PageForm(EditForm):
+    title = forms.CharField(widget=TextInput(attrs={'class': 'form-control'}))
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -22,8 +22,9 @@ def index(request):
 
 def entry(request, title):
     content = util.get_entry(title)
-    markdowner = Markdown()
-    content = markdowner.convert(content)
+    if content:
+        markdowner = Markdown()
+        content = markdowner.convert(content)
     return render(request, "wiki/entry.html", {
         "title": title.capitalize(),
         "content": content,
@@ -37,7 +38,7 @@ def search(request):
     for item in entries:
         formatted_item = item.lower()
         if formatted_query == formatted_item:
-            return entry(request, query)
+            return entry(request, formatted_query)
         if formatted_query in formatted_item:
             results.append(item)
     return render(request, "encyclopedia/search.html", {
