@@ -90,3 +90,10 @@ def watchlist(request, user_id):
         "watchlist": watchlist
     })
 
+@login_required
+def bid(request, listing_id):
+    return HttpResponseRedirect(reverse('listing', args=listing_id))
+
+
+
+
