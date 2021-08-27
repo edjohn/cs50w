@@ -5,7 +5,7 @@
 <ul>
     {% for listing in watchlist.listings.all %}
         <li>
-            <a href="{% url 'listings' %}{{ listing.id }}">{{ listing.title }}</a>
+            <a href="{% url 'listing' listing.id %}">{{ listing.title }}</a>
         </li>
     {% endfor %}
 </ul>

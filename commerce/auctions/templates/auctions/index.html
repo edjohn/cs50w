@@ -5,7 +5,7 @@
 
     {% for listing in listings %}
     <ul>
-        <li>Title: <a href="{% url 'listings' %}{{ listing.id }}">{{ listing.title }}</a></li>
+        <li>Title: <a href="{% url 'listing' listing.id %}">{{ listing.title }}</a></li>
         <li>Description: {{ listing.description }}</li>
         <li>Price: {{ listing.price }}</li>
         {% if listing.url %}

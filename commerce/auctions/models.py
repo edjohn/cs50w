@@ -34,7 +34,7 @@ class Comment(models.Model):
         return f"{self.user} : {self.comment}"
 
 class Watchlist(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_watchlist")
     listings = models.ManyToManyField(Listing, blank=True, related_name="listing_watchlists")
 
     def __str__(self):

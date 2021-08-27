@@ -16,8 +16,18 @@
             </div>
             {% endif %}
         </section>
-
-        <form action="{% url 'listing' listing.id %}" method="POST">
+        {% if user.is_authenticated %}
+        <form action="{% url 'bid' listing.id %}" method="POST">
+            {% csrf_token %}
+            <div class="row align-items-center mt-3">
+                <label for="bid_input" class="col-sm-auto fs-4 text-success">Bid (US$)</label>
+                <div class="col-sm-3">
+                    {{ bid_form }}
+                </div>
+                <input type="submit" class="btn btn-success col-sm-1" value="Post">
+            </div>
+        </form>
+        <form action="{% url 'watch' listing.id %}" method="POST">
             {% csrf_token %}
             <div class="row mt-3">
                 <div class="col-sm-1">
@@ -29,14 +39,6 @@
             {% endif %}
             </div>
         </form>
-        <form action="{% url 'bid' listing.id %}" method="POST">
-            <div class="row align-items-center mt-3">
-                <div class="col-sm-4">
-                    <label for="bid_input" class="col-sm-1">Bid</label>
-                    <input type="text" class="form-control col-sm-2" id="bid_input">
-                </div>
-                <input type="submit" class="btn btn-success col-sm-1" value="Post">
-            </div>
-        </form>
+        {% endif %}
     </div>
 {% endblock %}

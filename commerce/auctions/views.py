@@ -8,11 +8,13 @@ from django import forms
 
 from .models import User, Listing, Watchlist
 
+class BidForm(forms.Form):
+    bid = forms.DecimalField(decimal_places=2, min_value=0.01, max_value=10**9, label="", widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
 def index(request):
     return render(request, "auctions/index.html", {
         "listings": Listing.objects.all()
     })
-
 
 def login_view(request):
     if request.method == "POST":
@@ -66,34 +68,38 @@ def register(request):
         return render(request, "auctions/register.html")
 
 def listing(request, listing_id):
+    bid_form = BidForm()
     listing = Listing.objects.get(id=listing_id)
-    watchlist = Watchlist.objects.get(id=request.user.id)
-    item_in_watchlist = watchlist.listings.filter(id=listing_id).exists()
+    item_in_watchlist = False
+    if request.user.is_authenticated:
+        watchlist_listings = Watchlist.objects.get(id=request.user.id).listings
+        item_in_watchlist = watchlist_listings.filter(id=listing_id).exists()
     
-    if request.method == "POST":
-        if item_in_watchlist:
-            watchlist.listings.remove(listing)
-            item_in_watchlist = False
-        else:
-            watchlist.listings.add(listing)
-            item_in_watchlist = True
     return render(request, "auctions/listing.html", {
+        "listing": listing,
+        "bid_form": bid_form,
         "item_in_watchlist": item_in_watchlist,
-        "listing": listing
     })
 
 @login_required
 def watchlist(request, user_id):
     user = User.objects.get(id=user_id)
-    watchlist = user.watchlist
+    watchlist = user.user_watchlist
     return render(request, "auctions/watchlist.html", {
         "watchlist": watchlist
     })
 
 @login_required
 def bid(request, listing_id):
-    return HttpResponseRedirect(reverse('listing', args=listing_id))
+    return HttpResponseRedirect(reverse('listing', args=(listing_id,)))
 
-
-
-
+@login_required
+def handleWatch(request, listing_id):
+    watchlist_listings = Watchlist.objects.get(id=request.user.id).listings
+    item_in_watchlist = watchlist_listings.filter(id=listing_id).exists()
+    listing = Listing.objects.get(id=listing_id)
+    if item_in_watchlist:
+        watchlist_listings.remove(listing)
+    else:
+        watchlist_listings.add(listing)
+    return HttpResponseRedirect(reverse('listing', args=(listing_id,)))
