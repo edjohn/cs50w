@@ -1,0 +1,16 @@
+@import "../bootstrap-5.0.2/scss/bootstrap.scss";
+
+.listing_title {
+    @extend .fs-2;
+    @extend .text-primary;
+}
+
+.listing_description, .listing_category {
+    @extend .fs-4;
+    @extend .text-dark;
+}
+
+.listing_price {
+    @extend .fs-3;
+    @extend .text-success;
+}

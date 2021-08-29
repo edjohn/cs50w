@@ -23,7 +23,7 @@ class Bid(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing_bids", default='')
 
     def __str__(self):
-        return f"${self.bid}"
+        return f"${self.bid} on {self.listing}"
 
 class Comment(models.Model):
     comment = models.TextField()

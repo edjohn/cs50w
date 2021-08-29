@@ -1,22 +1,23 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+    <span class="fs-1">Active Listings</span>
 
     {% for listing in listings %}
-    <ul>
-        <li>Title: <a href="{% url 'listing' listing.id %}">{{ listing.title }}</a></li>
-        <li>Description: {{ listing.description }}</li>
-        <li>Price: {{ listing.price }}</li>
-        {% if listing.url %}
-            <li>
-                <img src="{{ listing.url }}">    
-            </li>
-        {% endif %}
-        {% if listing.category %}
-            <li>{{ listing.category }}</li>
-        {% endif %}
-    </ul>
+        <section class="mt-4">
+            <a href="{% url 'listing' listing.id %}" class="listing_title">{{ listing.title }}</a>
+            <p class="listing_description">{{ listing.description }}</p>
+            <p class="listing_price">${{ listing.price }}</p>
+            {% if listing.category %}
+            <p class="listing_category">Category: {{ listing.category }}</p>
+            {% endif %}
+
+            {% if listing.url %}
+            <div class="row">
+                <img class="img-fluid img-thumbnail col-3" src="{{ listing.url }}">
+            </div>
+            {% endif %}
+        </section>
     {% endfor %}
 
 {% endblock %}
