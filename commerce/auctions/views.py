@@ -5,18 +5,19 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django import forms
+from django.db.models import Max
 
-from .models import User, Listing, Watchlist
+from .models import User, Listing, Watchlist, Bid
 
 class BidForm(forms.Form):
     bid = forms.DecimalField(decimal_places=2, min_value=0.01, max_value=10**9, label="", widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
 class ListingForm(forms.Form):
-    title = forms.CharField(max_length=80)
-    description = forms.CharField(widget=forms.Textarea)
-    price = forms.DecimalField(decimal_places=2, max_digits=19)
-    url = forms.URLField(required=False)
-    category = forms.CharField(max_length=80, required=False)
+    title = forms.CharField(max_length=80, widget=forms.TextInput(attrs={'class':'form-control'}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))
+    price = forms.DecimalField(decimal_places=2, max_digits=19, widget=forms.NumberInput(attrs={'class':'form-control'}))
+    url = forms.URLField(required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+    category = forms.CharField(max_length=80, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 
 def index(request):
     return render(request, "auctions/index.html", {
@@ -80,6 +81,7 @@ def listing(request, listing_id):
     bid_form = BidForm()
     listing = Listing.objects.get(id=listing_id)
     item_in_watchlist = False
+    max_bid = listing.listing_bids.aggregate(Max('bid'))['bid__max']
     if request.user.is_authenticated:
         watchlist_listings = Watchlist.objects.get(user=request.user).listings
         item_in_watchlist = watchlist_listings.filter(id=listing_id).exists()
@@ -87,6 +89,7 @@ def listing(request, listing_id):
         "listing": listing,
         "bid_form": bid_form,
         "item_in_watchlist": item_in_watchlist,
+        "max_bid": round(max_bid, 2),
     })
  
 def create(request):
@@ -118,6 +121,18 @@ def watchlist(request, user_id):
 
 @login_required
 def bid(request, listing_id):
+    if request.method == 'POST':
+        bid_POST = request.POST["bid"]
+        listing = Listing.objects.get(id=listing_id)
+        user_bid = Bid(bid=float(bid_POST), user=request.user, listing=listing)
+        max_bid = 0
+        listing_bids = listing.listing_bids
+        if listing_bids.exists():
+            max_bid = listing_bids.aggregate(Max('bid'))['bid__max']
+        if user_bid.bid >= listing.price and user_bid.bid > max_bid:
+            user_bid.save()
+        else:
+            error_message = "You need a higher bid! Make sure you match the starting bid and exceed the maximum bid."
     return HttpResponseRedirect(reverse('listing', args=(listing_id,)))
 
 @login_required

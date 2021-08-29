@@ -2,6 +2,9 @@
 
 {% block body %}
     <div class="container-fluid">
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
         <section>
             <p class="listing_title">{{ listing.title }}</p>
             <p class="listing_description">{{ listing.description }}</p>
@@ -17,6 +20,7 @@
             {% endif %}
         </section>
         {% if user.is_authenticated %}
+        <p>The current maximum bid is ${{ max_bid }}</p>
         <form action="{% url 'bid' listing.id %}" method="POST">
             {% csrf_token %}
             <div class="row align-items-center mt-3">
