@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models.fields import related
+from django.db.models.deletion import SET_DEFAULT, SET_NULL
+from django.db.models.fields import BooleanField, related
 
 class User(AbstractUser):
     def __str__(self):
@@ -12,7 +13,18 @@ class Listing(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=19)
     url = models.URLField(default='')
     category = models.CharField(max_length=80, default='')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_listings", default='')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_listings")
+    active = BooleanField(default=True)
+    winner = models.OneToOneField(User, null=True, on_delete=SET_NULL)
+
+    def setActive(self):
+        self.active = True
+
+    def setInactive(self):
+        self.active = False
+    
+    def setWinner(self, winner):
+        self.winner = winner
 
     def __str__(self):
         return f"{self.title} : {self.description} : ${self.price}"

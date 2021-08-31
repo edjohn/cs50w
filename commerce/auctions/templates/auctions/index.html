@@ -1,23 +1,24 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <span class="fs-1">Active Listings</span>
+    <div class=container-fluid>
+        <span class="fs-1">Active Listings</span>
+        {% for listing in listings %}
+            <section class="mt-4">
+                <a href="{% url 'listing' listing.id %}" class="listing_title">{{ listing.title }}</a>
+                <p class="listing_description">{{ listing.description }}</p>
+                <p class="listing_price">${{ listing.price }}</p>
+                {% if listing.category %}
+                <p class="listing_category">Category: {{ listing.category }}</p>
+                {% endif %}
 
-    {% for listing in listings %}
-        <section class="mt-4">
-            <a href="{% url 'listing' listing.id %}" class="listing_title">{{ listing.title }}</a>
-            <p class="listing_description">{{ listing.description }}</p>
-            <p class="listing_price">${{ listing.price }}</p>
-            {% if listing.category %}
-            <p class="listing_category">Category: {{ listing.category }}</p>
-            {% endif %}
-
-            {% if listing.url %}
-            <div class="row">
-                <img class="img-fluid img-thumbnail col-3" src="{{ listing.url }}">
-            </div>
-            {% endif %}
-        </section>
-    {% endfor %}
+                {% if listing.url %}
+                <div class="row">
+                    <img class="img-fluid img-thumbnail col-3" src="{{ listing.url }}">
+                </div>
+                {% endif %}
+            </section>
+        {% endfor %}
+    </div>
 
 {% endblock %}

@@ -2,15 +2,23 @@
 
 {% block body %}
     <div class="container-fluid">
-        {% if message %}
-        <p>{{ message }}</p>
+        {% if not active %}
+            {% if user == listing.winner %}
+                <p class="text-success">Congratulations {{ user }}! You have won this auction!</p>
+                
+            {% else %}
+                <p class="text-danger">This auction is closed! The winner is {{ listing.winner }}</p>
+            {% endif %}
         {% endif %}
+        {% for message in messages %}
+            <p class="text-danger">{{ message }}</p>
+        {% endfor %}
         <section>
             <p class="listing_title">{{ listing.title }}</p>
             <p class="listing_description">{{ listing.description }}</p>
             <p class="listing_price">${{ listing.price }}</p>
             {% if listing.category %}
-            <p class="listing_category">Category: {{ listing.category }}</p>
+                <p class="listing_category">Category: {{ listing.category }}</p>
             {% endif %}
 
             {% if listing.url %}
@@ -19,30 +27,31 @@
             </div>
             {% endif %}
         </section>
-        {% if user.is_authenticated %}
-        <p>The current maximum bid is ${{ max_bid }}</p>
-        <form action="{% url 'bid' listing.id %}" method="POST">
-            {% csrf_token %}
-            <div class="row align-items-center mt-3">
-                <label for="bid_input" class="col-sm-auto fs-4 text-success">Bid (US$)</label>
-                <div class="col-sm-3">
-                    {{ bid_form }}
-                </div>
-                <input type="submit" class="btn btn-success col-sm-1" value="Post">
-            </div>
-        </form>
-        <form action="{% url 'watch' listing.id %}" method="POST">
-            {% csrf_token %}
-            <div class="row mt-3">
-                <div class="col-sm-1">
-                    {% if item_in_watchlist %}
-                    <input type="submit" class="btn btn-danger" value="Remove from Watchlist">
-                    {% else %}
-                    <input type="submit" class="btn btn-primary" value="Add to Watchlist">
-                </div>
+        {% if active and user.is_authenticated}
+            {% if user != listing.user %}
+                <form action="{% url 'bid' listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row align-items-center mt-3">
+                        <label for="bid_input" class="col-sm-auto fs-4 text-success">Bid (US$)</label>
+                        <div class="col-sm-3">
+                            {{ bid_form }}
+                        </div>
+                        <input type="submit" class="btn btn-success col-sm-1" value="Post">
+                    </div>
+                </form>
+                <form action="{% url 'watch' listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row mt-3">
+                        <div class="col-sm-1">
+                            {% if item_in_watchlist %}
+                                <input type="submit" class="btn btn-danger" value="Remove from Watchlist">
+                            {% else %}
+                            <input type="submit" class="btn btn-primary" value="Add to Watchlist">
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
             {% endif %}
-            </div>
-        </form>
         {% endif %}
     </div>
 {% endblock %}
