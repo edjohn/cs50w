@@ -7,7 +7,11 @@
                 <p class="text-success">Congratulations {{ user }}! You have won this auction!</p>
                 
             {% else %}
-                <p class="text-danger">This auction is closed! The winner is {{ listing.winner }}</p>
+                <p class="text-danger">This auction is closed!
+                {% if listing.winner %}
+                    The winner is {{ listing.winner }}
+                {% endif %}
+                </p>
             {% endif %}
         {% endif %}
         {% for message in messages %}
@@ -27,7 +31,7 @@
             </div>
             {% endif %}
         </section>
-        {% if active and user.is_authenticated}
+        {% if active and user.is_authenticated %}
             {% if user != listing.user %}
                 <form action="{% url 'bid' listing.id %}" method="POST">
                     {% csrf_token %}
@@ -46,9 +50,16 @@
                             {% if item_in_watchlist %}
                                 <input type="submit" class="btn btn-danger" value="Remove from Watchlist">
                             {% else %}
-                            <input type="submit" class="btn btn-primary" value="Add to Watchlist">
+                                <input type="submit" class="btn btn-primary" value="Add to Watchlist">
                             {% endif %}
                         </div>
+                    </div>
+                </form>
+            {% else %}
+                <form action="{% url 'close' listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row mt-3">
+                        <input type="submit" class="btn btn-danger col-sm-3" value="Close Auction">
                     </div>
                 </form>
             {% endif %}

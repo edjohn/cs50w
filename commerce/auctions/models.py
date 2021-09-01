@@ -15,7 +15,7 @@ class Listing(models.Model):
     category = models.CharField(max_length=80, default='')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_listings")
     active = BooleanField(default=True)
-    winner = models.OneToOneField(User, null=True, on_delete=SET_NULL)
+    winner = models.OneToOneField(User, default=None, blank=True, null=True, on_delete=SET_NULL)
 
     def setActive(self):
         self.active = True

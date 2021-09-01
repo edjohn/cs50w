@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django import forms
 from django.db.models import Max
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import User, Listing, Watchlist, Bid
 
@@ -83,11 +84,13 @@ def listing(request, listing_id):
     item_in_watchlist = False
     highest_bid = 0
     user = request.user
-    if listing.listing_bids.exists():
-        highest_bid = listing.listing_bids.order_by('-bid')[0]
-    if user.is_authenticated and user.user_watchlist:
-        watchlist_listings = Watchlist.objects.get(user=request.user).listings
-        item_in_watchlist = watchlist_listings.filter(id=listing_id).exists()
+    try:
+        if user.is_authenticated:
+            watchlist_listings = Watchlist.objects.get(user=request.user).listings
+            item_in_watchlist = watchlist_listings.filter(id=listing_id).exists()
+    except Watchlist.DoesNotExist:
+        watchlist = Watchlist(user=user)
+        watchlist.save()
     return render(request, "auctions/listing.html", {
         "listing": listing,
         "bid_form": bid_form,
@@ -117,8 +120,8 @@ def create(request):
     })
 
 @login_required
-def watchlist(request, user_id):
-    user = User.objects.get(id=user_id)
+def watchlist(request):
+    watchlist = Watchlist.objects.get(user=request.user)
     return render(request, "auctions/watchlist.html", {
         "watchlist": watchlist
     })
@@ -139,8 +142,8 @@ def bid(request, listing_id):
             messages.add_message(request, messages.ERROR, error_message)
     return HttpResponseRedirect(reverse('listing', args=(listing_id,)))
 
-def setListingInWatchlist(request, listing_id):
-    watchlist_listings = Watchlist.objects.get(id=request.user.id).listings
+def watch(request, listing_id):
+    watchlist_listings = Watchlist.objects.get(user=request.user).listings
     item_in_watchlist = watchlist_listings.filter(id=listing_id).exists()
     listing = Listing.objects.get(id=listing_id)
     if item_in_watchlist:
@@ -149,11 +152,17 @@ def setListingInWatchlist(request, listing_id):
         watchlist_listings.add(listing)
     return HttpResponseRedirect(reverse('listing', args=(listing_id,)))
 
-def closeAuction(request, listing):
+def close(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
     if request.method == 'POST':
-        max_bid = listing.listing_bids.aggregate(Max('bid'))
-        listing.setInactive()
-        listing.setWinner(max_bid.user)
+        if listing.listing_bids.exists():
+            max_bid = listing.listing_bids.order_by('-bid')[0]
+            listing.setInactive()
+            listing.setWinner(max_bid.user)
+        else:
+            listing.setInactive()
+            listing.setWinner = None
+        listing.save()
     return HttpResponseRedirect(reverse('listing', args=(listing.id,)))
 
     
