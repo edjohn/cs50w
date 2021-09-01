@@ -63,6 +63,20 @@
                     </div>
                 </form>
             {% endif %}
+
+            {% for comment in listing.listing_comments.all %}
+                <p>{{ comment }}</p>
+            {% endfor %}
+
+            <form action="{% url 'comment' listing.id %}" method="POST">
+                {% csrf_token %}
+                <div class="row align-items-center mt-3">
+                    <div class="col-sm-3">
+                        {{ comment_form }}
+                    </div>
+                    <input type="submit" class="btn btn-success col-sm-1" value="Submit">
+                </div>
+            </form>
         {% endif %}
     </div>
 {% endblock %}

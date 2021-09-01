@@ -10,7 +10,7 @@ from django.db.models import Max
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import User, Listing, Watchlist, Bid
+from .models import User, Listing, Watchlist, Bid, Comment
 
 class BidForm(forms.Form):
     bid = forms.DecimalField(decimal_places=2, min_value=0.01, max_value=10**9, label="", widget=forms.NumberInput(attrs={'class': 'form-control'}))
@@ -21,6 +21,9 @@ class ListingForm(forms.Form):
     price = forms.DecimalField(decimal_places=2, max_digits=19, widget=forms.NumberInput(attrs={'class':'form-control'}))
     url = forms.URLField(required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
     category = forms.CharField(max_length=80, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+
+class CommentForm(forms.Form):
+    comment = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
 
 def index(request):
     return render(request, "auctions/index.html", {
@@ -81,6 +84,7 @@ def register(request):
 def listing(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     bid_form = BidForm()
+    comment_form = CommentForm()
     item_in_watchlist = False
     highest_bid = 0
     user = request.user
@@ -91,11 +95,14 @@ def listing(request, listing_id):
     except Watchlist.DoesNotExist:
         watchlist = Watchlist(user=user)
         watchlist.save()
+    except Comment.DoesNotExist:
+        comment = None
     return render(request, "auctions/listing.html", {
         "listing": listing,
         "bid_form": bid_form,
+        "comment_form": comment_form,
         "item_in_watchlist": item_in_watchlist,
-        "active": listing.active
+        "active": listing.active,
     })
  
 @login_required
@@ -165,5 +172,14 @@ def close(request, listing_id):
         listing.save()
     return HttpResponseRedirect(reverse('listing', args=(listing.id,)))
 
-    
+def comment(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form_data = form.cleaned_data["comment"]
+            comment = Comment(comment=form_data, user=request.user, listing=listing)
+            comment.save()
+    return HttpResponseRedirect(reverse('listing', args=(listing.id,)))
+
 
