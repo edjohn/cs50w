@@ -9,8 +9,7 @@ from django import forms
 from django.db.models import Max
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-
-from .models import User, Listing, Watchlist, Bid, Comment
+from .models import User, Listing, Watchlist, Bid, Comment, Category
 
 class BidForm(forms.Form):
     bid = forms.DecimalField(decimal_places=2, min_value=0.01, max_value=10**9, label="", widget=forms.NumberInput(attrs={'class': 'form-control'}))
@@ -104,7 +103,19 @@ def listing(request, listing_id):
         "item_in_watchlist": item_in_watchlist,
         "active": listing.active,
     })
- 
+
+def categories(request):
+    categories = Category.objects.all()
+    return render(request, "auctions/categories.html", {
+        "categories": categories
+    })
+
+def category(request, category):
+    filtered_listings = Listing.objects.filter(category__iexact=category)
+    return render(request, "auctions/category.html", {
+        "listings": filtered_listings
+    })
+
 @login_required
 def create(request):
     if request.method == "POST":
@@ -115,6 +126,9 @@ def create(request):
             price = form.cleaned_data["price"]
             url = form.cleaned_data["url"]
             category = form.cleaned_data["category"]
+            new_category = Category(category=category)
+            if not Category.objects.filter(category__iexact=category):
+                new_category.save()
             listing = Listing(title=title, description=description, price=price, url=url, category=category, user=request.user)
             listing.save()
             return HttpResponseRedirect(reverse('index'))

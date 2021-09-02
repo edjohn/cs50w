@@ -7,12 +7,18 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.username}"
 
+class Category(models.Model):
+    category = models.CharField(max_length=80, unique=True, default='')
+
+    def __str__(self):
+        return f"{self.category}"
+
 class Listing(models.Model):
     title = models.CharField(max_length=80)
     description = models.TextField()
     price = models.DecimalField(decimal_places=2, max_digits=19)
     url = models.URLField(default='')
-    category = models.CharField(max_length=80, default='')
+    category = models.CharField(max_length=80, default='', blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_listings")
     active = BooleanField(default=True)
     winner = models.OneToOneField(User, default=None, blank=True, null=True, on_delete=SET_NULL)
