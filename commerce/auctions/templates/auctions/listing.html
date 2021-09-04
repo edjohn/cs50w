@@ -4,25 +4,30 @@
     <div class="container-fluid">
         {% if not active %}
             {% if user == listing.winner %}
-                <p class="text-success">Congratulations {{ user }}! You have won this auction!</p>
+                <p class="alert alert-success">Congratulations {{ user }}! You have won this auction!</p>
                 
             {% else %}
-                <p class="text-danger">This auction is closed!
+                <p class="alert alert-danger">This auction is closed!
                 {% if listing.winner %}
                     The winner is {{ listing.winner }}
                 {% endif %}
                 </p>
             {% endif %}
         {% endif %}
+
         {% for message in messages %}
             <p class="text-danger">{{ message }}</p>
         {% endfor %}
+
         <section>
             <p class="listing_title">{{ listing.title }}</p>
             <p class="listing_description">{{ listing.description }}</p>
+            <p class="listing_user">Listed by: {{ listing.user }}</p>
             <p class="listing_price">${{ listing.price }}</p>
             {% if listing.category %}
-                <p class="listing_category">Category: {{ listing.category }}</p>
+                <p class="listing_category">
+                    Category: <a href="{% url 'category' listing.category %}"> {{ listing.category }}</a>
+                </p>
             {% endif %}
 
             {% if listing.url %}
@@ -43,19 +48,22 @@
                         <input type="submit" class="btn btn-success col-sm-1" value="Post">
                     </div>
                 </form>
-                <form action="{% url 'watch' listing.id %}" method="POST">
-                    {% csrf_token %}
-                    <div class="row mt-3">
-                        <div class="col-sm-1">
-                            {% if item_in_watchlist %}
-                                <input type="submit" class="btn btn-danger" value="Remove from Watchlist">
-                            {% else %}
-                                <input type="submit" class="btn btn-primary" value="Add to Watchlist">
-                            {% endif %}
-                        </div>
+            {% endif %}
+
+            <form action="{% url 'watch' listing.id %}" method="POST">
+                {% csrf_token %}
+                <div class="row mt-3">
+                    <div class="col-sm-1">
+                        {% if item_in_watchlist %}
+                            <input type="submit" class="btn btn-danger" value="Remove from Watchlist">
+                        {% else %}
+                            <input type="submit" class="btn btn-primary" value="Add to Watchlist">
+                        {% endif %}
                     </div>
-                </form>
-            {% else %}
+                </div>
+            </form>
+
+            {% if user == listing.user %}
                 <form action="{% url 'close' listing.id %}" method="POST">
                     {% csrf_token %}
                     <div class="row mt-3">
@@ -63,10 +71,6 @@
                     </div>
                 </form>
             {% endif %}
-
-            {% for comment in listing.listing_comments.all %}
-                <p>{{ comment }}</p>
-            {% endfor %}
 
             <form action="{% url 'comment' listing.id %}" method="POST">
                 {% csrf_token %}
@@ -78,5 +82,11 @@
                 </div>
             </form>
         {% endif %}
+        {% for comment in listing.listing_comments.all %}
+        <div class="listing_comment">
+            <span>{{ comment.user }}</span>
+            <p>{{ comment.comment }}</p>
+        </div>
+        {% endfor %}
     </div>
 {% endblock %}

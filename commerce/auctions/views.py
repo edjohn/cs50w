@@ -22,7 +22,7 @@ class ListingForm(forms.Form):
     category = forms.CharField(max_length=80, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 
 class CommentForm(forms.Form):
-    comment = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+    comment = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'class': 'form-control'}))
 
 def index(request):
     return render(request, "auctions/index.html", {

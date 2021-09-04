@@ -5,12 +5,28 @@
     @extend .text-primary;
 }
 
-.listing_description, .listing_category {
-    @extend .fs-4;
+.listing_description, .listing_category, .listing_user {
+    @extend .fs-5;
     @extend .text-dark;
 }
 
 .listing_price {
     @extend .fs-3;
     @extend .text-success;
+}
+
+.listing_comment {
+    @extend .border;
+    @extend .border-dark;
+    @extend .col-sm-6;
+    @extend .mt-3;
+    @extend .p-2;
+
+    p {
+        @extend .fw-normal;
+    }
+
+    span {
+        @extend .fw-bold;
+    }
 }
