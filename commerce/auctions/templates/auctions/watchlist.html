@@ -1,12 +1,22 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-<h1>Watchlist</h1>
-<ul>
+    <span class="title">Watchlist</span>
+
     {% for listing in watchlist.listings.all %}
-        <li>
-            <a href="{% url 'listing' listing.id %}">{{ listing.title }}</a>
-        </li>
+        <section class="listing row">
+            <a href="{% url 'listing' listing.id %}" class="listing_title">{{ listing.title }}</a>
+            <p class="listing_description">{{ listing.description }}</p>
+            <p class="listing_price">${{ listing.price }}</p>
+            {% if listing.category %}
+            <p class="listing_category">Category: {{ listing.category }}</p>
+            {% endif %}
+
+            {% if listing.url %}
+            <div class="row">
+                <img class="listing_image" src="{{ listing.url }}">
+            </div>
+            {% endif %}
+        </section>
     {% endfor %}
-</ul>
 {% endblock %}

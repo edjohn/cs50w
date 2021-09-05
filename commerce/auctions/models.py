@@ -15,8 +15,8 @@ class Category(models.Model):
 
 class Listing(models.Model):
     title = models.CharField(max_length=80)
-    description = models.TextField()
-    price = models.DecimalField(decimal_places=2, max_digits=19)
+    description = models.TextField(max_length=1000)
+    price = models.DecimalField(decimal_places=2, max_digits=9)
     url = models.URLField(default='')
     category = models.CharField(max_length=80, default='', blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_listings")
@@ -36,7 +36,7 @@ class Listing(models.Model):
         return f"{self.title} : {self.description} : ${self.price}"
 
 class Bid(models.Model):
-    bid = models.DecimalField(decimal_places=2, max_digits=19)
+    bid = models.DecimalField(decimal_places=2, max_digits=9)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_bids")
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing_bids", default='')
 

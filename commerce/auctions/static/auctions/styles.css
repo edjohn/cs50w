@@ -559,12 +559,12 @@ progress {
   content: "— ";
 }
 
-.img-fluid {
+.img-fluid, .listing_image img {
   max-width: 100%;
   height: auto;
 }
 
-.img-thumbnail {
+.img-thumbnail, .listing_image img {
   padding: 0.25rem;
   background-color: #fff;
   border: 1px solid #dee2e6;
@@ -626,7 +626,7 @@ progress {
     max-width: 1320px;
   }
 }
-.row {
+.row, .listing {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   display: flex;
@@ -635,7 +635,7 @@ progress {
   margin-right: calc(var(--bs-gutter-x) * -.5);
   margin-left: calc(var(--bs-gutter-x) * -.5);
 }
-.row > * {
+.row > *, .listing > * {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
@@ -1058,7 +1058,7 @@ progress {
     width: auto;
   }
 
-  .col-sm-1 {
+  .col-sm-1, .bid_btn {
     flex: 0 0 auto;
     width: 8.33333333%;
   }
@@ -1068,7 +1068,7 @@ progress {
     width: 16.66666667%;
   }
 
-  .col-sm-3 {
+  .col-sm-3, .close_auction_btn, .watchlist_add_btn, .watchlist_remove_btn, .listing_image img {
     flex: 0 0 auto;
     width: 25%;
   }
@@ -2465,7 +2465,7 @@ textarea.form-control-lg {
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
 }
-.btn-check[disabled] + .btn, .btn-check:disabled + .btn {
+.btn-check[disabled] + .btn, .btn-check[disabled] + .close_auction_btn, .btn-check[disabled] + .watchlist_add_btn, .btn-check[disabled] + .watchlist_remove_btn, .btn-check[disabled] + .bid_btn, .btn-check:disabled + .btn, .btn-check:disabled + .close_auction_btn, .btn-check:disabled + .watchlist_add_btn, .btn-check:disabled + .watchlist_remove_btn, .btn-check:disabled + .bid_btn {
   pointer-events: none;
   filter: none;
   opacity: 0.65;
@@ -2624,11 +2624,11 @@ textarea.form-control-lg {
 .input-group > .form-select:focus {
   z-index: 3;
 }
-.input-group .btn {
+.input-group .btn, .input-group .close_auction_btn, .input-group .watchlist_add_btn, .input-group .watchlist_remove_btn, .input-group .bid_btn {
   position: relative;
   z-index: 2;
 }
-.input-group .btn:focus {
+.input-group .btn:focus, .input-group .close_auction_btn:focus, .input-group .watchlist_add_btn:focus, .input-group .watchlist_remove_btn:focus, .input-group .bid_btn:focus {
   z-index: 3;
 }
 
@@ -2650,7 +2650,11 @@ textarea.form-control-lg {
 .input-group-lg > .form-control,
 .input-group-lg > .form-select,
 .input-group-lg > .input-group-text,
-.input-group-lg > .btn {
+.input-group-lg > .btn,
+.input-group-lg > .close_auction_btn,
+.input-group-lg > .watchlist_add_btn,
+.input-group-lg > .watchlist_remove_btn,
+.input-group-lg > .bid_btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   border-radius: 0.3rem;
@@ -2659,7 +2663,11 @@ textarea.form-control-lg {
 .input-group-sm > .form-control,
 .input-group-sm > .form-select,
 .input-group-sm > .input-group-text,
-.input-group-sm > .btn {
+.input-group-sm > .btn,
+.input-group-sm > .close_auction_btn,
+.input-group-sm > .watchlist_add_btn,
+.input-group-sm > .watchlist_remove_btn,
+.input-group-sm > .bid_btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   border-radius: 0.2rem;
@@ -2864,7 +2872,7 @@ textarea.form-control-lg {
   z-index: 3;
 }
 
-.btn {
+.btn, .close_auction_btn, .watchlist_add_btn, .watchlist_remove_btn, .bid_btn {
   display: inline-block;
   font-weight: 400;
   line-height: 1.5;
@@ -2882,18 +2890,18 @@ textarea.form-control-lg {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn {
+  .btn, .close_auction_btn, .watchlist_add_btn, .watchlist_remove_btn, .bid_btn {
     transition: none;
   }
 }
-.btn:hover {
+.btn:hover, .close_auction_btn:hover, .watchlist_add_btn:hover, .watchlist_remove_btn:hover, .bid_btn:hover {
   color: #212529;
 }
-.btn-check:focus + .btn, .btn:focus {
+.btn-check:focus + .btn, .btn-check:focus + .close_auction_btn, .btn-check:focus + .watchlist_add_btn, .btn-check:focus + .watchlist_remove_btn, .btn-check:focus + .bid_btn, .btn:focus, .close_auction_btn:focus, .watchlist_add_btn:focus, .watchlist_remove_btn:focus, .bid_btn:focus {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
-.btn:disabled, .btn.disabled, fieldset:disabled .btn {
+.btn:disabled, .close_auction_btn:disabled, .watchlist_add_btn:disabled, .watchlist_remove_btn:disabled, .bid_btn:disabled, .btn.disabled, .disabled.close_auction_btn, .disabled.watchlist_add_btn, .disabled.watchlist_remove_btn, .disabled.bid_btn, fieldset:disabled .btn, fieldset:disabled .close_auction_btn, fieldset:disabled .watchlist_add_btn, fieldset:disabled .watchlist_remove_btn, fieldset:disabled .bid_btn {
   pointer-events: none;
   opacity: 0.65;
 }
@@ -2928,61 +2936,61 @@ textarea.form-control-lg {
   border-color: #0d6efd;
 }
 
-.btn-secondary {
+.btn-secondary, .close_auction_btn {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
 }
-.btn-secondary:hover {
+.btn-secondary:hover, .close_auction_btn:hover {
   color: #fff;
   background-color: #5c636a;
   border-color: #565e64;
 }
-.btn-check:focus + .btn-secondary, .btn-secondary:focus {
+.btn-check:focus + .btn-secondary, .btn-check:focus + .close_auction_btn, .btn-secondary:focus, .close_auction_btn:focus {
   color: #fff;
   background-color: #5c636a;
   border-color: #565e64;
   box-shadow: 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
 }
-.btn-check:checked + .btn-secondary, .btn-check:active + .btn-secondary, .btn-secondary:active, .btn-secondary.active, .show > .btn-secondary.dropdown-toggle {
+.btn-check:checked + .btn-secondary, .btn-check:checked + .close_auction_btn, .btn-check:active + .btn-secondary, .btn-check:active + .close_auction_btn, .btn-secondary:active, .close_auction_btn:active, .btn-secondary.active, .active.close_auction_btn, .show > .btn-secondary.dropdown-toggle, .show > .dropdown-toggle.close_auction_btn {
   color: #fff;
   background-color: #565e64;
   border-color: #51585e;
 }
-.btn-check:checked + .btn-secondary:focus, .btn-check:active + .btn-secondary:focus, .btn-secondary:active:focus, .btn-secondary.active:focus, .show > .btn-secondary.dropdown-toggle:focus {
+.btn-check:checked + .btn-secondary:focus, .btn-check:checked + .close_auction_btn:focus, .btn-check:active + .btn-secondary:focus, .btn-check:active + .close_auction_btn:focus, .btn-secondary:active:focus, .close_auction_btn:active:focus, .btn-secondary.active:focus, .active.close_auction_btn:focus, .show > .btn-secondary.dropdown-toggle:focus, .show > .dropdown-toggle.close_auction_btn:focus {
   box-shadow: 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
 }
-.btn-secondary:disabled, .btn-secondary.disabled {
+.btn-secondary:disabled, .close_auction_btn:disabled, .btn-secondary.disabled, .disabled.close_auction_btn {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
 }
 
-.btn-success {
+.btn-success, .watchlist_add_btn {
   color: #fff;
   background-color: #198754;
   border-color: #198754;
 }
-.btn-success:hover {
+.btn-success:hover, .watchlist_add_btn:hover {
   color: #fff;
   background-color: #157347;
   border-color: #146c43;
 }
-.btn-check:focus + .btn-success, .btn-success:focus {
+.btn-check:focus + .btn-success, .btn-check:focus + .watchlist_add_btn, .btn-success:focus, .watchlist_add_btn:focus {
   color: #fff;
   background-color: #157347;
   border-color: #146c43;
   box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
 }
-.btn-check:checked + .btn-success, .btn-check:active + .btn-success, .btn-success:active, .btn-success.active, .show > .btn-success.dropdown-toggle {
+.btn-check:checked + .btn-success, .btn-check:checked + .watchlist_add_btn, .btn-check:active + .btn-success, .btn-check:active + .watchlist_add_btn, .btn-success:active, .watchlist_add_btn:active, .btn-success.active, .active.watchlist_add_btn, .show > .btn-success.dropdown-toggle, .show > .dropdown-toggle.watchlist_add_btn {
   color: #fff;
   background-color: #146c43;
   border-color: #13653f;
 }
-.btn-check:checked + .btn-success:focus, .btn-check:active + .btn-success:focus, .btn-success:active:focus, .btn-success.active:focus, .show > .btn-success.dropdown-toggle:focus {
+.btn-check:checked + .btn-success:focus, .btn-check:checked + .watchlist_add_btn:focus, .btn-check:active + .btn-success:focus, .btn-check:active + .watchlist_add_btn:focus, .btn-success:active:focus, .watchlist_add_btn:active:focus, .btn-success.active:focus, .active.watchlist_add_btn:focus, .show > .btn-success.dropdown-toggle:focus, .show > .dropdown-toggle.watchlist_add_btn:focus {
   box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
 }
-.btn-success:disabled, .btn-success.disabled {
+.btn-success:disabled, .watchlist_add_btn:disabled, .btn-success.disabled, .disabled.watchlist_add_btn {
   color: #fff;
   background-color: #198754;
   border-color: #198754;
@@ -3018,61 +3026,61 @@ textarea.form-control-lg {
   border-color: #0dcaf0;
 }
 
-.btn-warning {
+.btn-warning, .bid_btn {
   color: #000;
   background-color: #ffc107;
   border-color: #ffc107;
 }
-.btn-warning:hover {
+.btn-warning:hover, .bid_btn:hover {
   color: #000;
   background-color: #ffca2c;
   border-color: #ffc720;
 }
-.btn-check:focus + .btn-warning, .btn-warning:focus {
+.btn-check:focus + .btn-warning, .btn-check:focus + .bid_btn, .btn-warning:focus, .bid_btn:focus {
   color: #000;
   background-color: #ffca2c;
   border-color: #ffc720;
   box-shadow: 0 0 0 0.25rem rgba(217, 164, 6, 0.5);
 }
-.btn-check:checked + .btn-warning, .btn-check:active + .btn-warning, .btn-warning:active, .btn-warning.active, .show > .btn-warning.dropdown-toggle {
+.btn-check:checked + .btn-warning, .btn-check:checked + .bid_btn, .btn-check:active + .btn-warning, .btn-check:active + .bid_btn, .btn-warning:active, .bid_btn:active, .btn-warning.active, .active.bid_btn, .show > .btn-warning.dropdown-toggle, .show > .dropdown-toggle.bid_btn {
   color: #000;
   background-color: #ffcd39;
   border-color: #ffc720;
 }
-.btn-check:checked + .btn-warning:focus, .btn-check:active + .btn-warning:focus, .btn-warning:active:focus, .btn-warning.active:focus, .show > .btn-warning.dropdown-toggle:focus {
+.btn-check:checked + .btn-warning:focus, .btn-check:checked + .bid_btn:focus, .btn-check:active + .btn-warning:focus, .btn-check:active + .bid_btn:focus, .btn-warning:active:focus, .bid_btn:active:focus, .btn-warning.active:focus, .active.bid_btn:focus, .show > .btn-warning.dropdown-toggle:focus, .show > .dropdown-toggle.bid_btn:focus {
   box-shadow: 0 0 0 0.25rem rgba(217, 164, 6, 0.5);
 }
-.btn-warning:disabled, .btn-warning.disabled {
+.btn-warning:disabled, .bid_btn:disabled, .btn-warning.disabled, .disabled.bid_btn {
   color: #000;
   background-color: #ffc107;
   border-color: #ffc107;
 }
 
-.btn-danger {
+.btn-danger, .watchlist_remove_btn {
   color: #fff;
   background-color: #dc3545;
   border-color: #dc3545;
 }
-.btn-danger:hover {
+.btn-danger:hover, .watchlist_remove_btn:hover {
   color: #fff;
   background-color: #bb2d3b;
   border-color: #b02a37;
 }
-.btn-check:focus + .btn-danger, .btn-danger:focus {
+.btn-check:focus + .btn-danger, .btn-check:focus + .watchlist_remove_btn, .btn-danger:focus, .watchlist_remove_btn:focus {
   color: #fff;
   background-color: #bb2d3b;
   border-color: #b02a37;
   box-shadow: 0 0 0 0.25rem rgba(225, 83, 97, 0.5);
 }
-.btn-check:checked + .btn-danger, .btn-check:active + .btn-danger, .btn-danger:active, .btn-danger.active, .show > .btn-danger.dropdown-toggle {
+.btn-check:checked + .btn-danger, .btn-check:checked + .watchlist_remove_btn, .btn-check:active + .btn-danger, .btn-check:active + .watchlist_remove_btn, .btn-danger:active, .watchlist_remove_btn:active, .btn-danger.active, .active.watchlist_remove_btn, .show > .btn-danger.dropdown-toggle, .show > .dropdown-toggle.watchlist_remove_btn {
   color: #fff;
   background-color: #b02a37;
   border-color: #a52834;
 }
-.btn-check:checked + .btn-danger:focus, .btn-check:active + .btn-danger:focus, .btn-danger:active:focus, .btn-danger.active:focus, .show > .btn-danger.dropdown-toggle:focus {
+.btn-check:checked + .btn-danger:focus, .btn-check:checked + .watchlist_remove_btn:focus, .btn-check:active + .btn-danger:focus, .btn-check:active + .watchlist_remove_btn:focus, .btn-danger:active:focus, .watchlist_remove_btn:active:focus, .btn-danger.active:focus, .active.watchlist_remove_btn:focus, .show > .btn-danger.dropdown-toggle:focus, .show > .dropdown-toggle.watchlist_remove_btn:focus {
   box-shadow: 0 0 0 0.25rem rgba(225, 83, 97, 0.5);
 }
-.btn-danger:disabled, .btn-danger.disabled {
+.btn-danger:disabled, .watchlist_remove_btn:disabled, .btn-danger.disabled, .disabled.watchlist_remove_btn {
   color: #fff;
   background-color: #dc3545;
   border-color: #dc3545;
@@ -3350,13 +3358,13 @@ textarea.form-control-lg {
   color: #6c757d;
 }
 
-.btn-lg, .btn-group-lg > .btn {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .close_auction_btn, .btn-group-lg > .watchlist_add_btn, .btn-group-lg > .watchlist_remove_btn, .btn-group-lg > .bid_btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   border-radius: 0.3rem;
 }
 
-.btn-sm, .btn-group-sm > .btn {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .close_auction_btn, .btn-group-sm > .watchlist_add_btn, .btn-group-sm > .watchlist_remove_btn, .btn-group-sm > .bid_btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   border-radius: 0.2rem;
@@ -3701,23 +3709,71 @@ textarea.form-control-lg {
   display: inline-flex;
   vertical-align: middle;
 }
-.btn-group > .btn,
-.btn-group-vertical > .btn {
+.btn-group > .btn, .btn-group > .close_auction_btn, .btn-group > .watchlist_add_btn, .btn-group > .watchlist_remove_btn, .btn-group > .bid_btn,
+.btn-group-vertical > .btn,
+.btn-group-vertical > .close_auction_btn,
+.btn-group-vertical > .watchlist_add_btn,
+.btn-group-vertical > .watchlist_remove_btn,
+.btn-group-vertical > .bid_btn {
   position: relative;
   flex: 1 1 auto;
 }
-.btn-group > .btn-check:checked + .btn,
+.btn-group > .btn-check:checked + .btn, .btn-group > .btn-check:checked + .close_auction_btn, .btn-group > .btn-check:checked + .watchlist_add_btn, .btn-group > .btn-check:checked + .watchlist_remove_btn, .btn-group > .btn-check:checked + .bid_btn,
 .btn-group > .btn-check:focus + .btn,
+.btn-group > .btn-check:focus + .close_auction_btn,
+.btn-group > .btn-check:focus + .watchlist_add_btn,
+.btn-group > .btn-check:focus + .watchlist_remove_btn,
+.btn-group > .btn-check:focus + .bid_btn,
 .btn-group > .btn:hover,
+.btn-group > .close_auction_btn:hover,
+.btn-group > .watchlist_add_btn:hover,
+.btn-group > .watchlist_remove_btn:hover,
+.btn-group > .bid_btn:hover,
 .btn-group > .btn:focus,
+.btn-group > .close_auction_btn:focus,
+.btn-group > .watchlist_add_btn:focus,
+.btn-group > .watchlist_remove_btn:focus,
+.btn-group > .bid_btn:focus,
 .btn-group > .btn:active,
+.btn-group > .close_auction_btn:active,
+.btn-group > .watchlist_add_btn:active,
+.btn-group > .watchlist_remove_btn:active,
+.btn-group > .bid_btn:active,
 .btn-group > .btn.active,
+.btn-group > .active.close_auction_btn,
+.btn-group > .active.watchlist_add_btn,
+.btn-group > .active.watchlist_remove_btn,
+.btn-group > .active.bid_btn,
 .btn-group-vertical > .btn-check:checked + .btn,
+.btn-group-vertical > .btn-check:checked + .close_auction_btn,
+.btn-group-vertical > .btn-check:checked + .watchlist_add_btn,
+.btn-group-vertical > .btn-check:checked + .watchlist_remove_btn,
+.btn-group-vertical > .btn-check:checked + .bid_btn,
 .btn-group-vertical > .btn-check:focus + .btn,
+.btn-group-vertical > .btn-check:focus + .close_auction_btn,
+.btn-group-vertical > .btn-check:focus + .watchlist_add_btn,
+.btn-group-vertical > .btn-check:focus + .watchlist_remove_btn,
+.btn-group-vertical > .btn-check:focus + .bid_btn,
 .btn-group-vertical > .btn:hover,
+.btn-group-vertical > .close_auction_btn:hover,
+.btn-group-vertical > .watchlist_add_btn:hover,
+.btn-group-vertical > .watchlist_remove_btn:hover,
+.btn-group-vertical > .bid_btn:hover,
 .btn-group-vertical > .btn:focus,
+.btn-group-vertical > .close_auction_btn:focus,
+.btn-group-vertical > .watchlist_add_btn:focus,
+.btn-group-vertical > .watchlist_remove_btn:focus,
+.btn-group-vertical > .bid_btn:focus,
 .btn-group-vertical > .btn:active,
-.btn-group-vertical > .btn.active {
+.btn-group-vertical > .close_auction_btn:active,
+.btn-group-vertical > .watchlist_add_btn:active,
+.btn-group-vertical > .watchlist_remove_btn:active,
+.btn-group-vertical > .bid_btn:active,
+.btn-group-vertical > .btn.active,
+.btn-group-vertical > .active.close_auction_btn,
+.btn-group-vertical > .active.watchlist_add_btn,
+.btn-group-vertical > .active.watchlist_remove_btn,
+.btn-group-vertical > .active.bid_btn {
   z-index: 1;
 }
 
@@ -3730,18 +3786,30 @@ textarea.form-control-lg {
   width: auto;
 }
 
-.btn-group > .btn:not(:first-child),
+.btn-group > .btn:not(:first-child), .btn-group > .close_auction_btn:not(:first-child), .btn-group > .watchlist_add_btn:not(:first-child), .btn-group > .watchlist_remove_btn:not(:first-child), .btn-group > .bid_btn:not(:first-child),
 .btn-group > .btn-group:not(:first-child) {
   margin-left: -1px;
 }
-.btn-group > .btn:not(:last-child):not(.dropdown-toggle),
-.btn-group > .btn-group:not(:last-child) > .btn {
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .btn-group > .close_auction_btn:not(:last-child):not(.dropdown-toggle), .btn-group > .watchlist_add_btn:not(:last-child):not(.dropdown-toggle), .btn-group > .watchlist_remove_btn:not(:last-child):not(.dropdown-toggle), .btn-group > .bid_btn:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn-group:not(:last-child) > .btn,
+.btn-group > .btn-group:not(:last-child) > .close_auction_btn,
+.btn-group > .btn-group:not(:last-child) > .watchlist_add_btn,
+.btn-group > .btn-group:not(:last-child) > .watchlist_remove_btn,
+.btn-group > .btn-group:not(:last-child) > .bid_btn {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.btn-group > .btn:nth-child(n+3),
+.btn-group > .btn:nth-child(n+3), .btn-group > .close_auction_btn:nth-child(n+3), .btn-group > .watchlist_add_btn:nth-child(n+3), .btn-group > .watchlist_remove_btn:nth-child(n+3), .btn-group > .bid_btn:nth-child(n+3),
 .btn-group > :not(.btn-check) + .btn,
-.btn-group > .btn-group:not(:first-child) > .btn {
+.btn-group > :not(.btn-check) + .close_auction_btn,
+.btn-group > :not(.btn-check) + .watchlist_add_btn,
+.btn-group > :not(.btn-check) + .watchlist_remove_btn,
+.btn-group > :not(.btn-check) + .bid_btn,
+.btn-group > .btn-group:not(:first-child) > .btn,
+.btn-group > .btn-group:not(:first-child) > .close_auction_btn,
+.btn-group > .btn-group:not(:first-child) > .watchlist_add_btn,
+.btn-group > .btn-group:not(:first-child) > .watchlist_remove_btn,
+.btn-group > .btn-group:not(:first-child) > .bid_btn {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -3757,12 +3825,12 @@ textarea.form-control-lg {
   margin-right: 0;
 }
 
-.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split {
+.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > .close_auction_btn + .dropdown-toggle-split, .btn-group-sm > .watchlist_add_btn + .dropdown-toggle-split, .btn-group-sm > .watchlist_remove_btn + .dropdown-toggle-split, .btn-group-sm > .bid_btn + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
 }
 
-.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split {
+.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > .close_auction_btn + .dropdown-toggle-split, .btn-group-lg > .watchlist_add_btn + .dropdown-toggle-split, .btn-group-lg > .watchlist_remove_btn + .dropdown-toggle-split, .btn-group-lg > .bid_btn + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -3772,21 +3840,29 @@ textarea.form-control-lg {
   align-items: flex-start;
   justify-content: center;
 }
-.btn-group-vertical > .btn,
+.btn-group-vertical > .btn, .btn-group-vertical > .close_auction_btn, .btn-group-vertical > .watchlist_add_btn, .btn-group-vertical > .watchlist_remove_btn, .btn-group-vertical > .bid_btn,
 .btn-group-vertical > .btn-group {
   width: 100%;
 }
-.btn-group-vertical > .btn:not(:first-child),
+.btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > .close_auction_btn:not(:first-child), .btn-group-vertical > .watchlist_add_btn:not(:first-child), .btn-group-vertical > .watchlist_remove_btn:not(:first-child), .btn-group-vertical > .bid_btn:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) {
   margin-top: -1px;
 }
-.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle),
-.btn-group-vertical > .btn-group:not(:last-child) > .btn {
+.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .close_auction_btn:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .watchlist_add_btn:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .watchlist_remove_btn:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .bid_btn:not(:last-child):not(.dropdown-toggle),
+.btn-group-vertical > .btn-group:not(:last-child) > .btn,
+.btn-group-vertical > .btn-group:not(:last-child) > .close_auction_btn,
+.btn-group-vertical > .btn-group:not(:last-child) > .watchlist_add_btn,
+.btn-group-vertical > .btn-group:not(:last-child) > .watchlist_remove_btn,
+.btn-group-vertical > .btn-group:not(:last-child) > .bid_btn {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.btn-group-vertical > .btn ~ .btn,
-.btn-group-vertical > .btn-group:not(:first-child) > .btn {
+.btn-group-vertical > .btn ~ .btn, .btn-group-vertical > .close_auction_btn ~ .btn, .btn-group-vertical > .btn ~ .close_auction_btn, .btn-group-vertical > .close_auction_btn ~ .close_auction_btn, .btn-group-vertical > .watchlist_add_btn ~ .btn, .btn-group-vertical > .watchlist_add_btn ~ .close_auction_btn, .btn-group-vertical > .btn ~ .watchlist_add_btn, .btn-group-vertical > .close_auction_btn ~ .watchlist_add_btn, .btn-group-vertical > .watchlist_add_btn ~ .watchlist_add_btn, .btn-group-vertical > .watchlist_remove_btn ~ .btn, .btn-group-vertical > .watchlist_remove_btn ~ .close_auction_btn, .btn-group-vertical > .watchlist_remove_btn ~ .watchlist_add_btn, .btn-group-vertical > .btn ~ .watchlist_remove_btn, .btn-group-vertical > .close_auction_btn ~ .watchlist_remove_btn, .btn-group-vertical > .watchlist_add_btn ~ .watchlist_remove_btn, .btn-group-vertical > .watchlist_remove_btn ~ .watchlist_remove_btn, .btn-group-vertical > .bid_btn ~ .btn, .btn-group-vertical > .bid_btn ~ .close_auction_btn, .btn-group-vertical > .bid_btn ~ .watchlist_add_btn, .btn-group-vertical > .bid_btn ~ .watchlist_remove_btn, .btn-group-vertical > .btn ~ .bid_btn, .btn-group-vertical > .close_auction_btn ~ .bid_btn, .btn-group-vertical > .watchlist_add_btn ~ .bid_btn, .btn-group-vertical > .watchlist_remove_btn ~ .bid_btn, .btn-group-vertical > .bid_btn ~ .bid_btn,
+.btn-group-vertical > .btn-group:not(:first-child) > .btn,
+.btn-group-vertical > .btn-group:not(:first-child) > .close_auction_btn,
+.btn-group-vertical > .btn-group:not(:first-child) > .watchlist_add_btn,
+.btn-group-vertical > .btn-group:not(:first-child) > .watchlist_remove_btn,
+.btn-group-vertical > .btn-group:not(:first-child) > .bid_btn {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -4600,7 +4676,7 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn .badge {
+.btn .badge, .close_auction_btn .badge, .watchlist_add_btn .badge, .watchlist_remove_btn .badge, .bid_btn .badge {
   position: relative;
   top: -1px;
 }
@@ -6384,7 +6460,7 @@ textarea.form-control-lg {
   transform: translateY(-50%) !important;
 }
 
-.border, .listing_comment {
+.border, .listing_comment, .listing {
   border: 1px solid #dee2e6 !important;
 }
 
@@ -6452,7 +6528,7 @@ textarea.form-control-lg {
   border-color: #f8f9fa !important;
 }
 
-.border-dark, .listing_comment {
+.border-dark, .listing {
   border-color: #212529 !important;
 }
 
@@ -6464,7 +6540,7 @@ textarea.form-control-lg {
   border-width: 1px !important;
 }
 
-.border-2 {
+.border-2, .listing_comment {
   border-width: 2px !important;
 }
 
@@ -6850,7 +6926,7 @@ textarea.form-control-lg {
   margin-top: 0.5rem !important;
 }
 
-.mt-3, .listing_comment {
+.mt-3, .listing_comment, .listing {
   margin-top: 1rem !important;
 }
 
@@ -6962,7 +7038,7 @@ textarea.form-control-lg {
   padding: 0.5rem !important;
 }
 
-.p-3 {
+.p-3, .listing {
   padding: 1rem !important;
 }
 
@@ -7134,7 +7210,7 @@ textarea.form-control-lg {
   font-family: var(--bs-font-monospace) !important;
 }
 
-.fs-1 {
+.fs-1, .title {
   font-size: calc(1.375rem + 1.5vw) !important;
 }
 
@@ -7377,7 +7453,7 @@ textarea.form-control-lg {
   pointer-events: auto !important;
 }
 
-.rounded {
+.rounded, .listing_comment, .listing {
   border-radius: 0.25rem !important;
 }
 
@@ -10689,7 +10765,7 @@ textarea.form-control-lg {
   }
 }
 @media (min-width: 1200px) {
-  .fs-1 {
+  .fs-1, .title {
     font-size: 2.5rem !important;
   }
 

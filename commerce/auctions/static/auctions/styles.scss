@@ -1,5 +1,14 @@
 @import "../bootstrap-5.0.2/scss/bootstrap.scss";
 
+.listing {
+    @extend .mt-3;
+    @extend .p-3;
+    @extend .border;
+    @extend .rounded;
+    @extend .border-dark;
+    @extend .row;
+}
+
 .listing_title {
     @extend .fs-2;
     @extend .text-primary;
@@ -17,7 +26,8 @@
 
 .listing_comment {
     @extend .border;
-    @extend .border-dark;
+    @extend .border-2;
+    @extend .rounded;
     @extend .col-sm-6;
     @extend .mt-3;
     @extend .p-2;
@@ -29,4 +39,40 @@
     span {
         @extend .fw-bold;
     }
+}
+
+.listing_image {
+    img {
+        @extend .img-fluid;
+        @extend .img-thumbnail;
+        @extend .col-sm-3;
+    }
+}
+
+.bid_btn {
+    @extend .btn;
+    @extend .btn-warning;
+    @extend .col-sm-1;
+}
+
+.watchlist_remove_btn {
+    @extend .btn;
+    @extend .btn-danger;
+    @extend .col-sm-3;
+}
+
+.watchlist_add_btn {
+    @extend .btn;
+    @extend .btn-success;
+    @extend .col-sm-3;
+}
+
+.close_auction_btn {
+    @extend .btn;
+    @extend .btn-secondary;
+    @extend .col-sm-3;
+}
+
+.title {
+    @extend .fs-1;
 }

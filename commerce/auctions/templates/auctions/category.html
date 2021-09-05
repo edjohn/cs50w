@@ -1,13 +1,27 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <div class="container-fluid">
-        {% for listing in listings %}
-            {% if listing.active %}
-                <div class="row">
-                    <a href="{% url 'listing' listing.id %}" class="listing_title">{{ listing.title }}</a>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
+    <span class="title">Active Listings</span>
+
+    {% for listing in listings %}
+        {% if listing.active %}
+            <section class="listing">
+                    <p class="listing_title">{{ listing.title }}</p>
+                    <p class="listing_description">{{ listing.description }}</p>
+                    <p class="listing_user">Listed by: {{ listing.user }}</p>
+                    <p class="listing_price">${{ listing.price }}</p>
+                    {% if listing.category %}
+                        <p class="listing_category">
+                            Category: <a href="{% url 'category' listing.category %}"> {{ listing.category }}</a>
+                        </p>
+                    {% endif %}
+
+                    {% if listing.url %}
+                        <div class="listing_image">
+                            <img src="{{ listing.url }}">
+                        </div>
+                    {% endif %}
+            </section>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

@@ -1,25 +1,24 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <div class="container-fluid">
-        {% if not active %}
-            {% if user == listing.winner %}
-                <p class="alert alert-success">Congratulations {{ user }}! You have won this auction!</p>
-                
-            {% else %}
-                <p class="alert alert-danger">This auction is closed!
-                {% if listing.winner %}
-                    The winner is {{ listing.winner }}
-                {% endif %}
-                </p>
+    {% if not active %}
+        {% if user == listing.winner %}
+            <span class="alert alert-success row">Congratulations {{ user }}! You have won this auction!</span>
+            
+        {% else %}
+            <span class="alert alert-danger row">This auction is closed!
+            {% if listing.winner %}
+                The winner is {{ listing.winner }}
             {% endif %}
+            </span>
         {% endif %}
+    {% endif %}
 
-        {% for message in messages %}
-            <p class="text-danger">{{ message }}</p>
-        {% endfor %}
+    {% for message in messages %}
+        <p class="text-danger">{{ message }}</p>
+    {% endfor %}
 
-        <section>
+    <section class="listing">
             <p class="listing_title">{{ listing.title }}</p>
             <p class="listing_description">{{ listing.description }}</p>
             <p class="listing_user">Listed by: {{ listing.user }}</p>
@@ -31,62 +30,65 @@
             {% endif %}
 
             {% if listing.url %}
-            <div class="row">
-                <img class="img-fluid img-thumbnail col-3" src="{{ listing.url }}">
-            </div>
-            {% endif %}
-        </section>
-        {% if active and user.is_authenticated %}
-            {% if user != listing.user %}
-                <form action="{% url 'bid' listing.id %}" method="POST">
-                    {% csrf_token %}
-                    <div class="row align-items-center mt-3">
-                        <label for="bid_input" class="col-sm-auto fs-4 text-success">Bid (US$)</label>
-                        <div class="col-sm-3">
-                            {{ bid_form }}
-                        </div>
-                        <input type="submit" class="btn btn-success col-sm-1" value="Post">
-                    </div>
-                </form>
-            {% endif %}
-
-            <form action="{% url 'watch' listing.id %}" method="POST">
-                {% csrf_token %}
-                <div class="row mt-3">
-                    <div class="col-sm-1">
-                        {% if item_in_watchlist %}
-                            <input type="submit" class="btn btn-danger" value="Remove from Watchlist">
-                        {% else %}
-                            <input type="submit" class="btn btn-primary" value="Add to Watchlist">
-                        {% endif %}
-                    </div>
+                <div class="listing_image">
+                    <img src="{{ listing.url }}">
                 </div>
-            </form>
-
-            {% if user == listing.user %}
-                <form action="{% url 'close' listing.id %}" method="POST">
-                    {% csrf_token %}
-                    <div class="row mt-3">
-                        <input type="submit" class="btn btn-danger col-sm-3" value="Close Auction">
-                    </div>
-                </form>
             {% endif %}
+    </section>
 
-            <form action="{% url 'comment' listing.id %}" method="POST">
+    <form action="{% url 'watch' listing.id %}" method="POST">
+        {% csrf_token %}
+        <div class="row mt-3">
+            <div class="col px-0">
+                {% if item_in_watchlist %}
+                    <input type="submit" class="watchlist_remove_btn" value="Remove from Watchlist">
+                {% else %}
+                    <input type="submit" class="watchlist_add_btn" value="Add to Watchlist">
+                {% endif %}
+            </div>
+        </div>
+    </form>
+
+    {% if active and user.is_authenticated %}
+        {% if user != listing.user %}
+            <form action="{% url 'bid' listing.id %}" method="POST">
                 {% csrf_token %}
                 <div class="row align-items-center mt-3">
+                    <label for="bid_input" class="col-sm-auto fs-4 text-success">Bid (US$)</label>
                     <div class="col-sm-3">
-                        {{ comment_form }}
+                        {{ bid_form }}
                     </div>
-                    <input type="submit" class="btn btn-success col-sm-1" value="Submit">
+                    <input type="submit" class="bid_btn" value="Bid">
                 </div>
             </form>
         {% endif %}
-        {% for comment in listing.listing_comments.all %}
-        <div class="listing_comment">
-            <span>{{ comment.user }}</span>
-            <p>{{ comment.comment }}</p>
+
+        {% if user == listing.user %}
+            <form action="{% url 'close' listing.id %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <input type="submit" class="close_auction_btn mt-3" value="Close Auction">
+                </div>
+            </form>
+        {% endif %}
+
+        <form action="{% url 'comment' listing.id %}" method="POST">
+            {% csrf_token %}
+            <div class="row align-items-center mt-3">
+                <div class="col-sm-3">
+                    {{ comment_form }}
+                </div>
+                <input type="submit" class="btn btn-success col-sm-1" value="Submit">
+            </div>
+        </form>
+    {% endif %}
+
+    {% for comment in listing.listing_comments.all %}
+        <div class="row">
+            <div class="listing_comment">
+                <span>{{ comment.user }}</span>
+                <p>{{ comment.comment }}</p>
+            </div>
         </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
 {% endblock %}

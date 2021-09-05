@@ -8,16 +8,15 @@ from django.contrib.auth.decorators import login_required
 from django import forms
 from django.db.models import Max
 from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
 from .models import User, Listing, Watchlist, Bid, Comment, Category
 
 class BidForm(forms.Form):
-    bid = forms.DecimalField(decimal_places=2, min_value=0.01, max_value=10**9, label="", widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    bid = forms.DecimalField(decimal_places=2, min_value=0.01, max_value=9999999.99, label="", widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
 class ListingForm(forms.Form):
     title = forms.CharField(max_length=80, widget=forms.TextInput(attrs={'class':'form-control'}))
-    description = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))
-    price = forms.DecimalField(decimal_places=2, max_digits=19, widget=forms.NumberInput(attrs={'class':'form-control'}))
+    description = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={'class':'form-control'}))
+    price = forms.DecimalField(decimal_places=2, max_digits=9, widget=forms.NumberInput(attrs={'class':'form-control'}))
     url = forms.URLField(required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
     category = forms.CharField(max_length=80, required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 
@@ -127,7 +126,7 @@ def create(request):
             url = form.cleaned_data["url"]
             category = form.cleaned_data["category"]
             new_category = Category(category=category)
-            if not Category.objects.filter(category__iexact=category):
+            if not Category.objects.filter(category__iexact=category).exists():
                 new_category.save()
             listing = Listing(title=title, description=description, price=price, url=url, category=category, user=request.user)
             listing.save()
