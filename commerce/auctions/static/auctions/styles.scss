@@ -1,12 +1,25 @@
 @import "../bootstrap-5.0.2/scss/bootstrap.scss";
 
+.centered_row {
+    @extend .row;
+    @extend .align-items-center;
+    @extend .justify-content-center;
+}
+
+.listing_container {
+    @extend .row;
+    @extend .justify-content-center;
+
+}
+
 .listing {
-    @extend .mt-3;
+    @extend .my-3;
     @extend .p-3;
     @extend .border;
     @extend .rounded;
     @extend .border-dark;
-    @extend .row;
+    @extend .text-center;
+    @extend .col-sm-8;
 }
 
 .listing_title {
@@ -58,19 +71,19 @@
 .watchlist_remove_btn {
     @extend .btn;
     @extend .btn-danger;
-    @extend .col-sm-3;
+    @extend .col-sm-6;
 }
 
 .watchlist_add_btn {
     @extend .btn;
     @extend .btn-success;
-    @extend .col-sm-3;
+    @extend .col-sm-6;
 }
 
 .close_auction_btn {
     @extend .btn;
     @extend .btn-secondary;
-    @extend .col-sm-3;
+    @extend .col-sm-6;
 }
 
 .title {

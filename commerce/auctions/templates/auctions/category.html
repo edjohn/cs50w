@@ -6,7 +6,7 @@
     {% for listing in listings %}
         {% if listing.active %}
             <section class="listing">
-                    <p class="listing_title">{{ listing.title }}</p>
+                    <a href="{% url 'listing' listing.id %}" class="listing_title">{{ listing.title }}</a>
                     <p class="listing_description">{{ listing.description }}</p>
                     <p class="listing_user">Listed by: {{ listing.user }}</p>
                     <p class="listing_price">${{ listing.price }}</p>

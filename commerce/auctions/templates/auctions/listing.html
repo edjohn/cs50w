@@ -18,34 +18,34 @@
         <p class="text-danger">{{ message }}</p>
     {% endfor %}
 
-    <section class="listing">
-            <p class="listing_title">{{ listing.title }}</p>
-            <p class="listing_description">{{ listing.description }}</p>
-            <p class="listing_user">Listed by: {{ listing.user }}</p>
-            <p class="listing_price">${{ listing.price }}</p>
-            {% if listing.category %}
-                <p class="listing_category">
-                    Category: <a href="{% url 'category' listing.category %}"> {{ listing.category }}</a>
-                </p>
-            {% endif %}
+    <div class="listing_container">
+        <section class="listing">
+                <p class="listing_title">{{ listing.title }}</p>
+                <p class="listing_description">{{ listing.description }}</p>
+                <p class="listing_user">Listed by: {{ listing.user }}</p>
+                <p class="listing_price">${{ listing.price }}</p>
+                {% if listing.category %}
+                    <p class="listing_category">
+                        Category: <a href="{% url 'category' listing.category %}"> {{ listing.category }}</a>
+                    </p>
+                {% endif %}
 
-            {% if listing.url %}
-                <div class="listing_image">
-                    <img src="{{ listing.url }}">
-                </div>
-            {% endif %}
-    </section>
+                {% if listing.url %}
+                    <div class="listing_image">
+                        <img src="{{ listing.url }}">
+                    </div>
+                {% endif %}
+        </section>
+    </div>
 
     <form action="{% url 'watch' listing.id %}" method="POST">
         {% csrf_token %}
-        <div class="row mt-3">
-            <div class="col px-0">
-                {% if item_in_watchlist %}
-                    <input type="submit" class="watchlist_remove_btn" value="Remove from Watchlist">
-                {% else %}
-                    <input type="submit" class="watchlist_add_btn" value="Add to Watchlist">
-                {% endif %}
-            </div>
+        <div class="centered_row mt-3">
+            {% if item_in_watchlist %}
+                <input type="submit" class="watchlist_remove_btn" value="Remove from Watchlist">
+            {% else %}
+                <input type="submit" class="watchlist_add_btn" value="Add to Watchlist">
+            {% endif %}
         </div>
     </form>
 
@@ -53,7 +53,7 @@
         {% if user != listing.user %}
             <form action="{% url 'bid' listing.id %}" method="POST">
                 {% csrf_token %}
-                <div class="row align-items-center mt-3">
+                <div class="centered_row mt-3">
                     <label for="bid_input" class="col-sm-auto fs-4 text-success">Bid (US$)</label>
                     <div class="col-sm-3">
                         {{ bid_form }}
@@ -66,7 +66,7 @@
         {% if user == listing.user %}
             <form action="{% url 'close' listing.id %}" method="POST">
                 {% csrf_token %}
-                <div class="row">
+                <div class="row justify-content-center">
                     <input type="submit" class="close_auction_btn mt-3" value="Close Auction">
                 </div>
             </form>
@@ -74,8 +74,8 @@
 
         <form action="{% url 'comment' listing.id %}" method="POST">
             {% csrf_token %}
-            <div class="row align-items-center mt-3">
-                <div class="col-sm-3">
+            <div class="centered_row my-3">
+                <div class="col-sm-6">
                     {{ comment_form }}
                 </div>
                 <input type="submit" class="btn btn-success col-sm-1" value="Submit">
@@ -84,8 +84,8 @@
     {% endif %}
 
     {% for comment in listing.listing_comments.all %}
-        <div class="row">
-            <div class="listing_comment">
+        <div class="centered_row">
+            <div class="listing_comment my-3">
                 <span>{{ comment.user }}</span>
                 <p>{{ comment.comment }}</p>
             </div>

@@ -4,7 +4,7 @@
     <span class="title">Watchlist</span>
 
     {% for listing in watchlist.listings.all %}
-        <section class="listing row">
+        <section class="listing">
             <a href="{% url 'listing' listing.id %}" class="listing_title">{{ listing.title }}</a>
             <p class="listing_description">{{ listing.description }}</p>
             <p class="listing_price">${{ listing.price }}</p>
@@ -13,8 +13,8 @@
             {% endif %}
 
             {% if listing.url %}
-            <div class="row">
-                <img class="listing_image" src="{{ listing.url }}">
+            <div class="listing_image">
+                <img src="{{ listing.url }}">
             </div>
             {% endif %}
         </section>
