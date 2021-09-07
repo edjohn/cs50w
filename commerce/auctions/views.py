@@ -84,12 +84,14 @@ def listing(request, listing_id):
     bid_form = BidForm()
     comment_form = CommentForm()
     item_in_watchlist = False
-    highest_bid = 0
+    max_bid = listing.price
     user = request.user
     try:
         if user.is_authenticated:
             watchlist_listings = Watchlist.objects.get(user=request.user).listings
             item_in_watchlist = watchlist_listings.filter(id=listing_id).exists()
+        if listing.listing_bids.exists():
+            max_bid = listing.listing_bids.order_by('-bid')[0].bid
     except Watchlist.DoesNotExist:
         watchlist = Watchlist(user=user)
         watchlist.save()
@@ -101,6 +103,7 @@ def listing(request, listing_id):
         "comment_form": comment_form,
         "item_in_watchlist": item_in_watchlist,
         "active": listing.active,
+        "max_bid": max_bid,
     })
 
 def categories(request):
@@ -177,11 +180,10 @@ def close(request, listing_id):
     if request.method == 'POST':
         if listing.listing_bids.exists():
             max_bid = listing.listing_bids.order_by('-bid')[0]
-            listing.setInactive()
             listing.setWinner(max_bid.user)
         else:
-            listing.setInactive()
             listing.setWinner = None
+        listing.setInactive()
         listing.save()
     return HttpResponseRedirect(reverse('listing', args=(listing.id,)))
 
