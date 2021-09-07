@@ -40,18 +40,18 @@
         </section>
     </div>
 
-    <form action="{% url 'watch' listing.id %}" method="POST">
-        {% csrf_token %}
-        <div class="centered_row mt-3">
-            {% if item_in_watchlist %}
-                <input type="submit" class="watchlist_remove_btn" value="Remove from Watchlist">
-            {% else %}
-                <input type="submit" class="watchlist_add_btn" value="Add to Watchlist">
-            {% endif %}
-        </div>
-    </form>
-
     {% if active and user.is_authenticated %}
+        <form action="{% url 'watch' listing.id %}" method="POST">
+            {% csrf_token %}
+            <div class="centered_row mt-3">
+                {% if item_in_watchlist %}
+                    <input type="submit" class="watchlist_remove_btn" value="Remove from Watchlist">
+                {% else %}
+                    <input type="submit" class="watchlist_add_btn" value="Add to Watchlist">
+                {% endif %}
+            </div>
+        </form>
+
         {% if user != listing.user %}
             <form action="{% url 'bid' listing.id %}" method="POST">
                 {% csrf_token %}
