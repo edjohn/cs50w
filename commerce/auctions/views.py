@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from django import forms
 from django.db.models import Max
 from django.contrib import messages
-import pdb;
 from .models import User, Listing, Watchlist, Bid, Comment, Category
 
 class BidForm(forms.Form):

@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models.deletion import SET_NULL
 from django.db.models.fields import BooleanField
 
 class User(AbstractUser):
