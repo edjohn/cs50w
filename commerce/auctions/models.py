@@ -17,20 +17,11 @@ class Listing(models.Model):
     title = models.CharField(max_length=80)
     description = models.TextField(max_length=1000)
     price = models.DecimalField(decimal_places=2, max_digits=9)
-    url = models.URLField(default='')
-    category = models.CharField(max_length=80, default='', blank=True)
+    url = models.URLField(default='', blank=True, null=True)
+    category = models.CharField(max_length=80, default='', blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_listings")
     active = BooleanField(default=True)
-    winner = models.OneToOneField(User, default=None, blank=True, null=True, on_delete=SET_NULL)
-
-    def setActive(self):
-        self.active = True
-
-    def setInactive(self):
-        self.active = False
-    
-    def setWinner(self, winner):
-        self.winner = winner
+    winner = models.ForeignKey(User, default=None, blank=True, null=True, on_delete=models.SET_NULL, related_name="user_wins")
 
     def __str__(self):
         return f"{self.title} : {self.description} : ${self.price}"
@@ -41,7 +32,7 @@ class Bid(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing_bids", default='')
 
     def __str__(self):
-        return f"${self.bid} on {self.listing}"
+        return f"${self.bid} on {self.listing} by {self.user}"
 
 class Comment(models.Model):
     comment = models.CharField(max_length=500)

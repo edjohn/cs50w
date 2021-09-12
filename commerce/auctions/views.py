@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django import forms
 from django.db.models import Max
 from django.contrib import messages
+import pdb;
 from .models import User, Listing, Watchlist, Bid, Comment, Category
 
 class BidForm(forms.Form):
@@ -83,19 +84,13 @@ def listing(request, listing_id):
     bid_form = BidForm()
     comment_form = CommentForm()
     item_in_watchlist = False
-    max_bid = listing.price
+    max_bid = None
     user = request.user
-    try:
-        if user.is_authenticated:
-            watchlist_listings = Watchlist.objects.get(user=request.user).listings
-            item_in_watchlist = watchlist_listings.filter(id=listing_id).exists()
-        if listing.listing_bids.exists():
-            max_bid = listing.listing_bids.order_by('-bid')[0].bid
-    except Watchlist.DoesNotExist:
-        watchlist = Watchlist(user=user)
-        watchlist.save()
-    except Comment.DoesNotExist:
-        comment = None
+    if user.is_authenticated:
+        watchlist_listings = Watchlist.objects.get(user=request.user).listings
+        item_in_watchlist = watchlist_listings.filter(id=listing_id).exists()
+    if listing.listing_bids.exists():
+        max_bid = listing.listing_bids.order_by('-bid')[0].bid
     return render(request, "auctions/listing.html", {
         "listing": listing,
         "bid_form": bid_form,
@@ -178,13 +173,12 @@ def close(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     if request.method == 'POST':
         if listing.listing_bids.exists():
-            max_bid = listing.listing_bids.order_by('-bid')[0]
-            listing.setWinner(max_bid.user)
-        else:
-            listing.setWinner = None
-        listing.setInactive()
+            ordered_listing_bids = listing.listing_bids.order_by('-bid')
+            max_bid = ordered_listing_bids[0]
+            listing.winner = max_bid.user
+        listing.active = False
         listing.save()
-    return HttpResponseRedirect(reverse('listing', args=(listing.id,)))
+    return HttpResponseRedirect(reverse('listing', args=(listing_id,)))
 
 def comment(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
