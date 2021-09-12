@@ -24,7 +24,12 @@ class CommentForm(forms.Form):
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.all()
+        "listings": Listing.objects.filter(active=True)
+    })
+
+def inactive(request):
+    return render(request, "auctions/inactive.html", {
+        "listings": Listing.objects.filter(active=False)
     })
 
 def login_view(request):
