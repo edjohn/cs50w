@@ -5,9 +5,9 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django import forms
-from django.db.models import Max
 from django.contrib import messages
 from .models import User, Listing, Watchlist, Bid, Comment, Category
+from decimal import Decimal
 
 class BidForm(forms.Form):
     bid = forms.DecimalField(decimal_places=2, min_value=0.01, max_value=9999999.99, label="", widget=forms.NumberInput(attrs={'class': 'form-control'}))
@@ -146,11 +146,12 @@ def bid(request, listing_id):
     if request.method == 'POST':
         bid_POST = request.POST["bid"]
         listing = Listing.objects.get(id=listing_id)
-        user_bid = Bid(bid=float(bid_POST), user=request.user, listing=listing)
+        user_bid = Bid(bid=Decimal(bid_POST), user=request.user, listing=listing)
         max_bid = 0
         listing_bids = listing.listing_bids
         if listing_bids.exists():
-            max_bid = listing_bids.aggregate(Max('bid'))['bid__max']
+            ordered_listing_bids = listing.listing_bids.order_by('-bid')
+            max_bid = ordered_listing_bids[0].bid
         if user_bid.bid >= listing.price and user_bid.bid > max_bid:
             user_bid.save()
         else:
