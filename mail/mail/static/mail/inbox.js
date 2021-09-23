@@ -21,15 +21,20 @@ function compose_email(recipients=[], subject='', body='') {
   const recipients_field = document.querySelector('#compose-recipients');
   const subject_field = document.querySelector('#compose-subject');
   const body_field = document.querySelector('#compose-body');
+  recipients_field.value = '';
+  subject_field.value = '';
+  body_field.value = ''; 
+
   for (var i = 0; i < recipients.length; i++) {
-    if (i === recipients.length - 1)
-    {
-      recipients_field.value += `${recipients[i]}`;
+      if (i == recipients.length-1)
+      {
+        recipients_field.value = `${recipients[i]}`;
+      }
+      else {
+        recipients_field.value += `${recipients[i]}, `;
+      }
     }
-    else {
-      recipients_field.value += `${recipients[i]}, `;
-    }
-  }
+
   subject_field.value = subject;
   body_field.value = body;
 
@@ -57,7 +62,6 @@ function load_mailbox(mailbox) {
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#email-content-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
-
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`
 
   fetch(`/emails/${mailbox}`)
@@ -72,16 +76,16 @@ function load_email(email, mailbox) {
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
 
-  fetch(`emails/${email.id}`)
-  .then(response => response.json())
-  .then(render_email_content(email));
-
   fetch(`emails/${email.id}`, {
     method: 'PUT',
     body: JSON.stringify({
       read: true
     })
   })
+
+  fetch(`emails/${email.id}`)
+  .then(response => response.json())
+  .then(render_email_content(email));
 
   if (mailbox !== 'sent')
   {
@@ -100,18 +104,19 @@ function render_email_header(email, mailbox) {
   if (email.read === true) {
     emailElement.style = 'background-color:gray';
   }
+  emailElement.classList.add('email-header');
 
   senderElement.innerHTML = 'Sender: ' + email.sender;
   subjectElement.innerHTML = 'Subject: ' + email.subject;
   timestampElement.innerHTML = 'Send Date: ' + email.timestamp;
   emailElement.append(senderElement, subjectElement, timestampElement);
-
   document.querySelector('#emails-view').append(emailElement);
 }
 
 function render_email_content(email) {
   const emailContentView = document.querySelector('#email-content-view');
   emailContentView.innerHTML = ''
+  emailContentView.classList.add('email-body');
 
   const emailContentElement = document.createElement('div');
   const senderElement = document.createElement('p');
