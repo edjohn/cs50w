@@ -1,0 +1,27 @@
+@import "bootstrap-5.1.1/scss/bootstrap.scss";
+
+.email-header, .email-body { 
+    @extend .border;
+    @extend .border-dark;
+    @extend .rounded;
+    @extend .border-2;
+    @extend .p-2;
+    @extend .mb-1;
+    cursor: pointer;
+    position: relative;
+    animation: move 0.5s;
+}
+
+
+button {
+    @extend .me-1;
+}
+
+@keyframes move {
+    from {
+        left: -25%;
+    }
+    to {
+        left: 0%;
+    }
+}

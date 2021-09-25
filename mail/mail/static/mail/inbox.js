@@ -76,6 +76,9 @@ function load_email(email, mailbox) {
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
 
+  //Clear out existing email display
+  document.querySelector('#email-content-view').innerHTML = '';
+
   fetch(`emails/${email.id}`, {
     method: 'PUT',
     body: JSON.stringify({
@@ -102,13 +105,13 @@ function render_email_header(email, mailbox) {
 
   emailElement.addEventListener('click', () => load_email(email, mailbox));
   if (email.read === true) {
-    emailElement.style = 'background-color:gray';
+    emailElement.classList.add('bg-secondary');
   }
   emailElement.classList.add('email-header');
 
-  senderElement.innerHTML = 'Sender: ' + email.sender;
-  subjectElement.innerHTML = 'Subject: ' + email.subject;
-  timestampElement.innerHTML = 'Send Date: ' + email.timestamp;
+  senderElement.innerHTML = '<b>Sender: </b>' + email.sender;
+  subjectElement.innerHTML = '<b>Subject: </b>' + email.subject;
+  timestampElement.innerHTML = '<b>Send Date: </b>' + email.timestamp;
   emailElement.append(senderElement, subjectElement, timestampElement);
   document.querySelector('#emails-view').append(emailElement);
 }
@@ -125,11 +128,11 @@ function render_email_content(email) {
   const timestampElement = document.createElement('p');
   const bodyElement = document.createElement('p');
 
-  senderElement.innerHTML = 'Sender: ' + email.sender;
-  recipientsElement.innerHTML = 'Recipients: ' + email.recipients;
-  subjectElement.innerHTML = 'Subject: ' + email.subject;
-  timestampElement.innerHTML = 'Send Date: ' + email.timestamp;
-  bodyElement.innerHTML = 'Body: ' + email.body;
+  senderElement.innerHTML = '<b>Sender: </b>' + email.sender;
+  recipientsElement.innerHTML = '<b>Recipients: </b>' + email.recipients;
+  subjectElement.innerHTML = '<b>Subject: </b>' + email.subject;
+  timestampElement.innerHTML = '<b>Send Date: </b>' + email.timestamp;
+  bodyElement.innerHTML = '<b>Body: </b>' + email.body;
 
   emailContentView.append(emailContentElement);
   emailContentElement.append(senderElement, recipientsElement, subjectElement, timestampElement, bodyElement);
@@ -145,6 +148,8 @@ function render_archive_button(email) {
     archiveButton.innerHTML = 'Archive';
     archiveButton.addEventListener('click', () => archive(email));
   }
+  archiveButton.classList.add('btn', 'btn-warning');
+
   document.querySelector('#email-content-view').append(archiveButton);
 }
 
@@ -161,6 +166,7 @@ function render_reply_button(email) {
   }
   body = `On ${email.timestamp} ${email.sender} wrote: ${email.body}`;
   replyButton.addEventListener('click', () => compose_email(recipients, subject, body));
+  replyButton.classList.add('btn', 'btn-success');
 
   document.querySelector('#email-content-view').append(replyButton);
 }
