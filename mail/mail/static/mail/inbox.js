@@ -38,11 +38,8 @@ function compose_email(recipients=[], subject='', body='') {
   subject_field.value = subject;
   body_field.value = body;
 
-  const compose_form = document.querySelector('#compose-form');
-  compose_form.addEventListener("submit", function(event) {
-    event.preventDefault();
-    submit_email(recipients_field, subject_field, body_field);
-  });
+  const submit_button = document.querySelector('#submit-btn');
+  submit_button.onclick = () => submit_email(recipients_field, subject_field, body_field);
 }
 
 function submit_email(recipients_field, subject_field, body_field) {
@@ -53,8 +50,8 @@ function submit_email(recipients_field, subject_field, body_field) {
       subject: subject_field.value,
       body: body_field.value,
     })
-  });
-  load_mailbox('sent');
+  })
+  .then(() => load_mailbox('sent'));
 }
 
 function load_mailbox(mailbox) {
@@ -177,8 +174,8 @@ function archive(email) {
     body: JSON.stringify({
       archived: true
     })
-  });
-  load_mailbox('inbox');
+  })
+  .then(() => load_mailbox('inbox'));
 }
 
 function unarchive(email) {
@@ -187,6 +184,6 @@ function unarchive(email) {
     body: JSON.stringify({
       archived: false
     })
-  });
-  load_mailbox('inbox');
+  })
+  .then(() => load_mailbox('inbox'));
 }
