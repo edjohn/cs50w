@@ -1,15 +1,18 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.forms.widgets import Textarea
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django import forms
 
 from .models import User
 
+class NewPostForm(forms.Form):
+    pass
 
 def index(request):
     return render(request, "network/index.html")
-
 
 def login_view(request):
     if request.method == "POST":
