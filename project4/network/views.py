@@ -5,18 +5,28 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django import forms
+from datetime import datetime
 
-from .models import User
+from .models import Post, User
 
 class NewPostForm(forms.Form):
-    pass
+    content = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'class': 'form-control'}))
 
 def index(request):
+    if request.user.is_authenticated:
+        form = NewPostForm()
+        if request.method == "POST":
+            if form.is_valid():
+                post_content = form.cleaned_data['content']
+                new_post = Post(request.user, post_content, datetime.now)
+                new_post.save()
+        return render(request, "network/index.html", {
+            "form": form
+        })
     return render(request, "network/index.html")
 
 def login_view(request):
     if request.method == "POST":
-
         # Attempt to sign user in
         username = request.POST["username"]
         password = request.POST["password"]
@@ -33,11 +43,9 @@ def login_view(request):
     else:
         return render(request, "network/login.html")
 
-
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
-
 
 def register(request):
     if request.method == "POST":

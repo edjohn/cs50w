@@ -1,6 +1,9 @@
 from django.test import TestCase
 from .models import User, Post, Like, FollowerRelation;
 from django.utils import timezone
+from selenium import webdriver
+from django.test import LiveServerTestCase
+from django.urls import reverse
 
 # Create your tests here.
 class UserTestCase(TestCase):
@@ -80,3 +83,36 @@ class PostTestCase(TestCase):
         self.assertEqual(self.user2.posts.count(), 1)
         self.user3Post.delete()
         self.assertEqual(self.user3.posts.count(), 0)
+
+class CreatePostTestCase(LiveServerTestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.implicitly_wait(5)
+        self.driver.get(self.live_server_url + '/register')
+        username_input = self.driver.find_element_by_name('username')
+        password_input = self.driver.find_element_by_name('password')
+        password_confirmation_input = self.driver.find_element_by_name('confirmation')
+        register_btn = self.driver.find_element_by_class_name('btn')
+        username_input.send_keys('testuser')
+        password_input.send_keys('testpass')
+        password_confirmation_input.send_keys('testpass')
+        register_btn.click()
+
+    def test_create_post(self):
+        self.driver.get(self.live_server_url + '/login')
+        username_input = self.driver.find_element_by_name('username')
+        password_input = self.driver.find_element_by_name('password')
+        login_btn = self.driver.find_element_by_class_name('btn')
+        username_input.send_keys('testuser')
+        password_input.send_keys('testpass')
+        login_btn.click()
+
+        create_post_btn = self.driver.find_element_by_class_name('btn')
+        post_form = self.driver.find_element_by_name('content')
+        post_form.send_keys('Some input for a post')
+        create_post_btn.click()
+
+        self.assertEqual(Post.objects.count(), 1)
+        
+
+
