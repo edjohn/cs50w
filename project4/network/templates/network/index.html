@@ -1,9 +1,20 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-<form action="{% url 'index' %}" method="POST">
-    {% csrf_token %}
-    {{ form }}
-    <button class="btn btn-primary mt-3">Create Post</button>
-</form>
+    <div class="create-post">
+        <h1>New Post</h2>
+        <form action="{% url 'index' %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn btn-primary mt-3">Create Post</button>
+        </form>
+    </div>
+
+    {% for post in posts %}
+    <div class="post">
+        <span class="post-info">Posted by {{ post.user }} at {{ post.creation_date }}</span>
+        <p class="post-content">{{ post.content }}</p>
+        <span class="post-likes">{{ post.post_likes.count }} likes</span>
+    </div>
+    {% endfor %}
 {% endblock %}

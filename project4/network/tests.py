@@ -113,6 +113,3 @@ class CreatePostTestCase(LiveServerTestCase):
         create_post_btn.click()
 
         self.assertEqual(Post.objects.count(), 1)
-        
-
-

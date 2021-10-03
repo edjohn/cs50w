@@ -1,29 +1,30 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.forms.widgets import Textarea
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django import forms
-from datetime import datetime
+from django.utils import timezone
 
 from .models import Post, User
 
 class NewPostForm(forms.Form):
-    content = forms.CharField(max_length=500, widget=forms.Textarea(attrs={'class': 'form-control'}))
+    content = forms.CharField(max_length=500, widget=forms.Textarea(), label="")
 
 def index(request):
+    posts = Post.objects.all()
+    form = NewPostForm()
     if request.user.is_authenticated:
-        form = NewPostForm()
         if request.method == "POST":
+            form = NewPostForm(request.POST)
             if form.is_valid():
                 post_content = form.cleaned_data['content']
-                new_post = Post(request.user, post_content, datetime.now)
+                new_post = Post(user=request.user, content=post_content, creation_date=timezone.now())
                 new_post.save()
-        return render(request, "network/index.html", {
-            "form": form
-        })
-    return render(request, "network/index.html")
+    return render(request, "network/index.html", {
+        "posts": posts,
+        "form": form,
+    })
 
 def login_view(request):
     if request.method == "POST":

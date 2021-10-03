@@ -1,0 +1,36 @@
+@import "./bootstrap-5.1.1/scss/bootstrap.scss";
+
+.post {
+    @extend .border;
+    @extend .border-primary;
+    @extend .border-1;
+    @extend .rounded;
+    @extend .mt-2;
+    @extend .p-3;
+    .post-info {
+        @extend .text-primary;
+        @extend .fs-6;
+    }
+    .post-content {
+        @extend .mt-1;
+        @extend .fs-3;
+    }
+    .post-likes {
+        @extend .fw-bold;
+    }
+}
+
+.create-post {
+    @extend .border;
+    @extend .border-dark;
+    @extend .border-1;
+    @extend .mt-2;
+    @extend .p-3;
+    @extend .rounded;
+    textarea {
+        @extend .form-control;
+    }
+    label {
+        @extend .fs-3;
+    }
+}
