@@ -1,8 +1,9 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    <p>Followed by {{ page_user.followers.count }} users</p>
-    <p>Following {{ page_user.followed_users.count }} users</p>
+    <h2 class="text-primary my-3">{{ page_user.username }}</h2>
+    <p class="text-secondary">Followed by {{ page_user.followers.count }} users</p>
+    <p class="text-secondary">Following {{ page_user.followed_users.count }} users</p>
     {% for post in posts %}
         <div class="post">
             <span class="post-info">Posted by {{ post.user }} at {{ post.creation_date }}</span>

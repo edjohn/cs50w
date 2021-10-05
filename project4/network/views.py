@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django import forms
@@ -34,6 +35,19 @@ def user(request, user_id):
         "posts": posts,
         "followed": followed,
     })
+
+def following(request):
+    if request.user.is_authenticated:
+        follower_relations = request.user.followed_users.all()
+        posts = []
+        for relation in follower_relations:
+            posts += relation.followed_user.posts.all()
+        return render(request, "network/following.html", {
+            "posts": sorted(posts, key=lambda post: post.creation_date, reverse=True)
+        })
+    else:
+        return HttpResponseRedirect(reverse("index"))
+
 
 def login_view(request):
     if request.method == "POST":
