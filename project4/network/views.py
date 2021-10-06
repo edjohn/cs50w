@@ -1,11 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
-from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django import forms
 from django.utils import timezone
+from django.core.paginator import Paginator
 
 from .models import FollowerRelation, Post, User
 
@@ -13,8 +13,10 @@ class NewPostForm(forms.Form):
     content = forms.CharField(max_length=500, widget=forms.Textarea(), label="")
 
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-creation_date')
     form = NewPostForm()
+    paginator = create_post_paginator(posts)
+    page_number = request.GET.get('page')
     if request.user.is_authenticated:
         if request.method == "POST":
             form = NewPostForm(request.POST)
@@ -22,7 +24,7 @@ def index(request):
                 post_content = form.cleaned_data['content']
                 create_post(request,post_content)
     return render(request, "network/index.html", {
-        "posts": posts.order_by('-creation_date'),
+        "posts": paginator.get_page(page_number),
         "form": form,
     })
 
@@ -42,8 +44,11 @@ def following(request):
         posts = []
         for relation in follower_relations:
             posts += relation.followed_user.posts.all()
+        posts = sorted(posts, key=lambda post: post.creation_date, reverse=True)
+        paginator = create_post_paginator(posts)
+        page_number = request.GET.get('page')
         return render(request, "network/following.html", {
-            "posts": sorted(posts, key=lambda post: post.creation_date, reverse=True)
+            "posts": paginator.get_page(page_number)
         })
     else:
         return HttpResponseRedirect(reverse("index"))
@@ -112,3 +117,7 @@ def create_post(request, post_content):
         new_post = Post(user=request.user, content=post_content, creation_date=timezone.now())
         new_post.save()
         return HttpResponseRedirect(reverse('index'))
+
+def create_post_paginator(posts):
+    paginator = Paginator(posts, 10)
+    return paginator

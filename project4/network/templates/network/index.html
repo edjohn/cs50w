@@ -8,7 +8,7 @@
         <form action="{% url 'index' %}" method="POST">
             {% csrf_token %}
             {{ form }}
-            <button class="btn btn-primary mt-3">Create Post</button>
+            <button class="btn btn-primary mt-3" id="create-post">Create Post</button>
         </form>
     </div>
 {% endblock %}

@@ -90,7 +90,7 @@ class CreatePostTestCase(LiveServerTestCase):
 
     def test_create_post(self):
         self.driver.get(self.live_server_url)
-        create_post_btn = self.driver.find_element_by_class_name('btn')
+        create_post_btn = self.driver.find_element_by_id('create-post')
         post_form = self.driver.find_element_by_name('content')
         post_form.send_keys('Some input for a post')
         create_post_btn.click()
@@ -110,6 +110,20 @@ class FollowUserTestCase(LiveServerTestCase):
         follow_button.click()
         self.assertEqual(current_user.followed_users.count(), 1)
         self.assertEqual(self.user2.followers.count(), 1)
+
+class PaginationTestCase(LiveServerTestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        register(self)
+        login(self)
+        self.current_user = User.objects.get(username='testuser')
+        for i in range(20):
+            Post.objects.create(user=self.current_user, content=f"Post {i}", creation_date=timezone.now())
+    
+    def testPagination(self):
+        self.driver.get(self.live_server_url)
+        posts = self.driver.find_elements_by_class_name('post')
+        self.assertEqual(len(posts), 10)
 
 def register(testcase):
     driver = testcase.driver

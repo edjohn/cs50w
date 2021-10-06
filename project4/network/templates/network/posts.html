@@ -1,5 +1,8 @@
 {% extends "network/layout.html" %}
 
+{% block script %}
+{% endblock %}
+
 {% block body %}
     {% block header %}
 
@@ -12,4 +15,13 @@
             <span class="post-likes">{{ post.post_likes.count }} likes</span>
         </div>
     {% endfor %}
+
+    <div class="pagination row justify-content-center">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}" class="nav-button">Previous Page</a>
+        {% endif %}
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}" class="nav-button">Next Page</a>
+        {% endif %}
+    </div>
 {% endblock %}

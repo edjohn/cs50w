@@ -34,3 +34,11 @@
         @extend .fs-3;
     }
 }
+
+.nav-button {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .my-3;
+    @extend .mx-2;
+    @extend .col-sm-1;
+}
