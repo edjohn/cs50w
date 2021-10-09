@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     posts.forEach(post => {
         edit_button = post.querySelector('.edit-button');
         edit_button.addEventListener('click', () => edit(post));
+        like_icon = post.querySelector('.like-icon');
+        like_icon.addEventListener('click', () => like(post));
+        updateLikeView(post);
     });
 });
 
@@ -41,6 +44,32 @@ function save(post) {
         })
     })
     .then(() => removeEditView(post));
+}
+
+function like(post) {
+    fetch('/like', {
+        method: 'POST',
+        body: JSON.stringify({
+            id: post.dataset.id,
+        })
+    })
+    .then(() => updateLikeView(post));
+}
+
+function updateLikeView(post) {
+    fetch(`/post_likes/${post.dataset.id}`)
+    .then(response => response.json())
+    .then(data => {
+        likes = post.querySelector('.post-likes');
+        like_icon = post.querySelector('.like-icon');
+        likes.textContent = `${data.likes} likes`;
+        if (data.user_liked) {
+            like_icon.src = "/static/network/like-icon.png"
+        }
+        else {
+            like_icon.src = "/static/network/like-icon-empty.png"
+        }
+    })
 }
 
 function removeEditView(post) {

@@ -17,6 +17,7 @@
     }
     .post-likes {
         @extend .fw-bold;
+        @extend .align-middle;
     }
 }
 
@@ -53,10 +54,16 @@
     @extend .btn;
     @extend .btn-secondary;
     @extend .mx-2;
+    @extend .align-middle;
 }
 
 .save-button {
     @extend .btn;
     @extend .btn-success;
     @extend .mx-2;
+}
+
+.like-icon {
+    @extend .align-middle;
+    @extend .me-2;
 }

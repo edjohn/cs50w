@@ -6539,7 +6539,7 @@ textarea.form-control-lg {
   vertical-align: top !important;
 }
 
-.align-middle {
+.align-middle, .like-icon, .edit-button, .post .post-likes {
   vertical-align: middle !important;
 }
 
@@ -7229,7 +7229,7 @@ textarea.form-control-lg {
   margin-right: 0.25rem !important;
 }
 
-.me-2 {
+.me-2, .like-icon {
   margin-right: 0.5rem !important;
 }
 

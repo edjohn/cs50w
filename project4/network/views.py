@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import FollowerRelation, Post, User
+from .models import FollowerRelation, Post, User, Like
 
 class NewPostForm(forms.Form):
     content = forms.CharField(max_length=500, widget=forms.Textarea(), label='')
@@ -137,3 +137,32 @@ def edit_post(request):
     post.content = content
     post.save()
     return JsonResponse({'message': 'Post edited successfully'})
+
+@csrf_exempt
+def like_post(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST request required.'}, status=400)
+    data = json.loads(request.body)
+    id = data.get('id')
+    if not id:
+        return JsonResponse({'error': 'Incorrect JSON response data received'})
+    post = Post.objects.get(id=id)
+    user_likes_on_post = Like.objects.filter(user=request.user, post=post)
+    if user_likes_on_post.exists():
+        user_likes_on_post.delete()
+        return JsonResponse({'message': 'Post unliked successfully'})
+    else:
+        like = Like(user=request.user, post=post)
+        like.save()
+        return JsonResponse({'message': 'Post liked successfully'})
+    
+def post_likes(request, post_id):
+    if request.method != 'GET':
+        return JsonResponse({'error': 'GET request required.'}, status=400)
+    post = Post.objects.get(id=post_id)
+    return JsonResponse({'likes': f'{post.post_likes.count()}', 'user_liked': Like.objects.filter(user=request.user, post=post).exists()})
+    
+
+
+
+
