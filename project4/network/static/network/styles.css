@@ -935,7 +935,7 @@ progress {
     width: 16.66666667%;
   }
 
-  .col-sm-3 {
+  .col-sm-3, .edit-content {
     flex: 0 0 auto;
     width: 25%;
   }
@@ -2171,7 +2171,7 @@ progress {
   color: #6c757d;
 }
 
-.form-control, .create-post textarea {
+.form-control, .edit-content, .create-post textarea {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -2187,35 +2187,35 @@ progress {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-control, .create-post textarea {
+  .form-control, .edit-content, .create-post textarea {
     transition: none;
   }
 }
-.form-control[type=file], .create-post textarea[type=file] {
+.form-control[type=file], [type=file].edit-content, .create-post textarea[type=file] {
   overflow: hidden;
 }
-.form-control[type=file]:not(:disabled):not([readonly]), .create-post textarea[type=file]:not(:disabled):not([readonly]) {
+.form-control[type=file]:not(:disabled):not([readonly]), [type=file].edit-content:not(:disabled):not([readonly]), .create-post textarea[type=file]:not(:disabled):not([readonly]) {
   cursor: pointer;
 }
-.form-control:focus, .create-post textarea:focus {
+.form-control:focus, .edit-content:focus, .create-post textarea:focus {
   color: #212529;
   background-color: #fff;
   border-color: #86b7fe;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
-.form-control::-webkit-date-and-time-value, .create-post textarea::-webkit-date-and-time-value {
+.form-control::-webkit-date-and-time-value, .edit-content::-webkit-date-and-time-value, .create-post textarea::-webkit-date-and-time-value {
   height: 1.5em;
 }
-.form-control::placeholder, .create-post textarea::placeholder {
+.form-control::placeholder, .edit-content::placeholder, .create-post textarea::placeholder {
   color: #6c757d;
   opacity: 1;
 }
-.form-control:disabled, .create-post textarea:disabled, .form-control[readonly], .create-post textarea[readonly] {
+.form-control:disabled, .edit-content:disabled, .create-post textarea:disabled, .form-control[readonly], [readonly].edit-content, .create-post textarea[readonly] {
   background-color: #e9ecef;
   opacity: 1;
 }
-.form-control::file-selector-button, .create-post textarea::file-selector-button {
+.form-control::file-selector-button, .edit-content::file-selector-button, .create-post textarea::file-selector-button {
   padding: 0.375rem 0.75rem;
   margin: -0.375rem -0.75rem;
   margin-inline-end: 0.75rem;
@@ -2230,14 +2230,14 @@ progress {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-control::file-selector-button, .create-post textarea::file-selector-button {
+  .form-control::file-selector-button, .edit-content::file-selector-button, .create-post textarea::file-selector-button {
     transition: none;
   }
 }
-.form-control:hover:not(:disabled):not([readonly])::file-selector-button, .create-post textarea:hover:not(:disabled):not([readonly])::file-selector-button {
+.form-control:hover:not(:disabled):not([readonly])::file-selector-button, .edit-content:hover:not(:disabled):not([readonly])::file-selector-button, .create-post textarea:hover:not(:disabled):not([readonly])::file-selector-button {
   background-color: #dde0e3;
 }
-.form-control::-webkit-file-upload-button, .create-post textarea::-webkit-file-upload-button {
+.form-control::-webkit-file-upload-button, .edit-content::-webkit-file-upload-button, .create-post textarea::-webkit-file-upload-button {
   padding: 0.375rem 0.75rem;
   margin: -0.375rem -0.75rem;
   margin-inline-end: 0.75rem;
@@ -2252,11 +2252,11 @@ progress {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-control::-webkit-file-upload-button, .create-post textarea::-webkit-file-upload-button {
+  .form-control::-webkit-file-upload-button, .edit-content::-webkit-file-upload-button, .create-post textarea::-webkit-file-upload-button {
     transition: none;
   }
 }
-.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .create-post textarea:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .edit-content:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .create-post textarea:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
   background-color: #dde0e3;
 }
 
@@ -2310,7 +2310,7 @@ progress {
   margin-inline-end: 1rem;
 }
 
-textarea.form-control, .create-post textarea {
+textarea.form-control, textarea.edit-content, .create-post textarea {
   min-height: calc(1.5em + 0.75rem + 2px);
 }
 textarea.form-control-sm {
@@ -2488,7 +2488,7 @@ textarea.form-control-lg {
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
 }
-.btn-check[disabled] + .btn, .btn-check[disabled] + .nav-button, .btn-check:disabled + .btn, .btn-check:disabled + .nav-button {
+.btn-check[disabled] + .btn, .btn-check[disabled] + .save-button, .btn-check[disabled] + .edit-button, .btn-check[disabled] + .nav-button, .btn-check:disabled + .btn, .btn-check:disabled + .save-button, .btn-check:disabled + .edit-button, .btn-check:disabled + .nav-button {
   pointer-events: none;
   filter: none;
   opacity: 0.65;
@@ -2579,7 +2579,7 @@ textarea.form-control-lg {
 .form-floating {
   position: relative;
 }
-.form-floating > .form-control, .create-post .form-floating > textarea,
+.form-floating > .form-control, .form-floating > .edit-content, .create-post .form-floating > textarea,
 .form-floating > .form-select {
   height: calc(3.5rem + 2px);
   line-height: 1.25;
@@ -2600,17 +2600,17 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-.form-floating > .form-control, .create-post .form-floating > textarea {
+.form-floating > .form-control, .form-floating > .edit-content, .create-post .form-floating > textarea {
   padding: 1rem 0.75rem;
 }
-.form-floating > .form-control::placeholder, .create-post .form-floating > textarea::placeholder {
+.form-floating > .form-control::placeholder, .form-floating > .edit-content::placeholder, .create-post .form-floating > textarea::placeholder {
   color: transparent;
 }
-.form-floating > .form-control:focus, .create-post .form-floating > textarea:focus, .form-floating > .form-control:not(:placeholder-shown), .create-post .form-floating > textarea:not(:placeholder-shown) {
+.form-floating > .form-control:focus, .form-floating > .edit-content:focus, .create-post .form-floating > textarea:focus, .form-floating > .form-control:not(:placeholder-shown), .form-floating > .edit-content:not(:placeholder-shown), .create-post .form-floating > textarea:not(:placeholder-shown) {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
-.form-floating > .form-control:-webkit-autofill, .create-post .form-floating > textarea:-webkit-autofill {
+.form-floating > .form-control:-webkit-autofill, .form-floating > .edit-content:-webkit-autofill, .create-post .form-floating > textarea:-webkit-autofill {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
@@ -2618,14 +2618,15 @@ textarea.form-control-lg {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
-.form-floating > .form-control:focus ~ label, .create-post .form-floating > textarea:focus ~ label,
+.form-floating > .form-control:focus ~ label, .form-floating > .edit-content:focus ~ label, .create-post .form-floating > textarea:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .edit-content:not(:placeholder-shown) ~ label,
 .create-post .form-floating > textarea:not(:placeholder-shown) ~ label,
 .form-floating > .form-select ~ label {
   opacity: 0.65;
   transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
-.form-floating > .form-control:-webkit-autofill ~ label, .create-post .form-floating > textarea:-webkit-autofill ~ label {
+.form-floating > .form-control:-webkit-autofill ~ label, .form-floating > .edit-content:-webkit-autofill ~ label, .create-post .form-floating > textarea:-webkit-autofill ~ label {
   opacity: 0.65;
   transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
@@ -2637,22 +2638,22 @@ textarea.form-control-lg {
   align-items: stretch;
   width: 100%;
 }
-.input-group > .form-control, .create-post .input-group > textarea,
+.input-group > .form-control, .input-group > .edit-content, .create-post .input-group > textarea,
 .input-group > .form-select {
   position: relative;
   flex: 1 1 auto;
   width: 1%;
   min-width: 0;
 }
-.input-group > .form-control:focus, .create-post .input-group > textarea:focus,
+.input-group > .form-control:focus, .input-group > .edit-content:focus, .create-post .input-group > textarea:focus,
 .input-group > .form-select:focus {
   z-index: 3;
 }
-.input-group .btn, .input-group .nav-button {
+.input-group .btn, .input-group .save-button, .input-group .edit-button, .input-group .nav-button {
   position: relative;
   z-index: 2;
 }
-.input-group .btn:focus, .input-group .nav-button:focus {
+.input-group .btn:focus, .input-group .save-button:focus, .input-group .edit-button:focus, .input-group .nav-button:focus {
   z-index: 3;
 }
 
@@ -2671,20 +2672,24 @@ textarea.form-control-lg {
   border-radius: 0.25rem;
 }
 
-.input-group-lg > .form-control, .create-post .input-group-lg > textarea,
+.input-group-lg > .form-control, .input-group-lg > .edit-content, .create-post .input-group-lg > textarea,
 .input-group-lg > .form-select,
 .input-group-lg > .input-group-text,
 .input-group-lg > .btn,
+.input-group-lg > .save-button,
+.input-group-lg > .edit-button,
 .input-group-lg > .nav-button {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   border-radius: 0.3rem;
 }
 
-.input-group-sm > .form-control, .create-post .input-group-sm > textarea,
+.input-group-sm > .form-control, .input-group-sm > .edit-content, .create-post .input-group-sm > textarea,
 .input-group-sm > .form-select,
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn,
+.input-group-sm > .save-button,
+.input-group-sm > .edit-button,
 .input-group-sm > .nav-button {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
@@ -2741,7 +2746,7 @@ textarea.form-control-lg {
   display: block;
 }
 
-.was-validated .form-control:valid, .was-validated .create-post textarea:valid, .create-post .was-validated textarea:valid, .form-control.is-valid, .create-post textarea.is-valid {
+.was-validated .form-control:valid, .was-validated .edit-content:valid, .was-validated .create-post textarea:valid, .create-post .was-validated textarea:valid, .form-control.is-valid, .is-valid.edit-content, .create-post textarea.is-valid {
   border-color: #198754;
   padding-right: calc(1.5em + 0.75rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
@@ -2749,12 +2754,12 @@ textarea.form-control-lg {
   background-position: right calc(0.375em + 0.1875rem) center;
   background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
-.was-validated .form-control:valid:focus, .was-validated .create-post textarea:valid:focus, .create-post .was-validated textarea:valid:focus, .form-control.is-valid:focus, .create-post textarea.is-valid:focus {
+.was-validated .form-control:valid:focus, .was-validated .edit-content:valid:focus, .was-validated .create-post textarea:valid:focus, .create-post .was-validated textarea:valid:focus, .form-control.is-valid:focus, .is-valid.edit-content:focus, .create-post textarea.is-valid:focus {
   border-color: #198754;
   box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
 }
 
-.was-validated textarea.form-control:valid, .was-validated .create-post textarea:valid, .create-post .was-validated textarea:valid, textarea.form-control.is-valid, .create-post textarea.is-valid {
+.was-validated textarea.form-control:valid, .was-validated textarea.edit-content:valid, .was-validated .create-post textarea:valid, .create-post .was-validated textarea:valid, textarea.form-control.is-valid, textarea.is-valid.edit-content, .create-post textarea.is-valid {
   padding-right: calc(1.5em + 0.75rem);
   background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
 }
@@ -2790,12 +2795,12 @@ textarea.form-control-lg {
   margin-left: 0.5em;
 }
 
-.was-validated .input-group .form-control:valid, .was-validated .input-group .create-post textarea:valid, .create-post .was-validated .input-group textarea:valid, .input-group .form-control.is-valid, .input-group .create-post textarea.is-valid, .create-post .input-group textarea.is-valid,
+.was-validated .input-group .form-control:valid, .was-validated .input-group .edit-content:valid, .was-validated .input-group .create-post textarea:valid, .create-post .was-validated .input-group textarea:valid, .input-group .form-control.is-valid, .input-group .is-valid.edit-content, .input-group .create-post textarea.is-valid, .create-post .input-group textarea.is-valid,
 .was-validated .input-group .form-select:valid,
 .input-group .form-select.is-valid {
   z-index: 1;
 }
-.was-validated .input-group .form-control:valid:focus, .was-validated .input-group .create-post textarea:valid:focus, .create-post .was-validated .input-group textarea:valid:focus, .input-group .form-control.is-valid:focus, .input-group .create-post textarea.is-valid:focus, .create-post .input-group textarea.is-valid:focus,
+.was-validated .input-group .form-control:valid:focus, .was-validated .input-group .edit-content:valid:focus, .was-validated .input-group .create-post textarea:valid:focus, .create-post .was-validated .input-group textarea:valid:focus, .input-group .form-control.is-valid:focus, .input-group .is-valid.edit-content:focus, .input-group .create-post textarea.is-valid:focus, .create-post .input-group textarea.is-valid:focus,
 .was-validated .input-group .form-select:valid:focus,
 .input-group .form-select.is-valid:focus {
   z-index: 3;
@@ -2830,7 +2835,7 @@ textarea.form-control-lg {
   display: block;
 }
 
-.was-validated .form-control:invalid, .was-validated .create-post textarea:invalid, .create-post .was-validated textarea:invalid, .form-control.is-invalid, .create-post textarea.is-invalid {
+.was-validated .form-control:invalid, .was-validated .edit-content:invalid, .was-validated .create-post textarea:invalid, .create-post .was-validated textarea:invalid, .form-control.is-invalid, .is-invalid.edit-content, .create-post textarea.is-invalid {
   border-color: #dc3545;
   padding-right: calc(1.5em + 0.75rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
@@ -2838,12 +2843,12 @@ textarea.form-control-lg {
   background-position: right calc(0.375em + 0.1875rem) center;
   background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
-.was-validated .form-control:invalid:focus, .was-validated .create-post textarea:invalid:focus, .create-post .was-validated textarea:invalid:focus, .form-control.is-invalid:focus, .create-post textarea.is-invalid:focus {
+.was-validated .form-control:invalid:focus, .was-validated .edit-content:invalid:focus, .was-validated .create-post textarea:invalid:focus, .create-post .was-validated textarea:invalid:focus, .form-control.is-invalid:focus, .is-invalid.edit-content:focus, .create-post textarea.is-invalid:focus {
   border-color: #dc3545;
   box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
 }
 
-.was-validated textarea.form-control:invalid, .was-validated .create-post textarea:invalid, .create-post .was-validated textarea:invalid, textarea.form-control.is-invalid, .create-post textarea.is-invalid {
+.was-validated textarea.form-control:invalid, .was-validated textarea.edit-content:invalid, .was-validated .create-post textarea:invalid, .create-post .was-validated textarea:invalid, textarea.form-control.is-invalid, textarea.is-invalid.edit-content, .create-post textarea.is-invalid {
   padding-right: calc(1.5em + 0.75rem);
   background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
 }
@@ -2879,18 +2884,18 @@ textarea.form-control-lg {
   margin-left: 0.5em;
 }
 
-.was-validated .input-group .form-control:invalid, .was-validated .input-group .create-post textarea:invalid, .create-post .was-validated .input-group textarea:invalid, .input-group .form-control.is-invalid, .input-group .create-post textarea.is-invalid, .create-post .input-group textarea.is-invalid,
+.was-validated .input-group .form-control:invalid, .was-validated .input-group .edit-content:invalid, .was-validated .input-group .create-post textarea:invalid, .create-post .was-validated .input-group textarea:invalid, .input-group .form-control.is-invalid, .input-group .is-invalid.edit-content, .input-group .create-post textarea.is-invalid, .create-post .input-group textarea.is-invalid,
 .was-validated .input-group .form-select:invalid,
 .input-group .form-select.is-invalid {
   z-index: 2;
 }
-.was-validated .input-group .form-control:invalid:focus, .was-validated .input-group .create-post textarea:invalid:focus, .create-post .was-validated .input-group textarea:invalid:focus, .input-group .form-control.is-invalid:focus, .input-group .create-post textarea.is-invalid:focus, .create-post .input-group textarea.is-invalid:focus,
+.was-validated .input-group .form-control:invalid:focus, .was-validated .input-group .edit-content:invalid:focus, .was-validated .input-group .create-post textarea:invalid:focus, .create-post .was-validated .input-group textarea:invalid:focus, .input-group .form-control.is-invalid:focus, .input-group .is-invalid.edit-content:focus, .input-group .create-post textarea.is-invalid:focus, .create-post .input-group textarea.is-invalid:focus,
 .was-validated .input-group .form-select:invalid:focus,
 .input-group .form-select.is-invalid:focus {
   z-index: 3;
 }
 
-.btn, .nav-button {
+.btn, .save-button, .edit-button, .nav-button {
   display: inline-block;
   font-weight: 400;
   line-height: 1.5;
@@ -2908,18 +2913,18 @@ textarea.form-control-lg {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn, .nav-button {
+  .btn, .save-button, .edit-button, .nav-button {
     transition: none;
   }
 }
-.btn:hover, .nav-button:hover {
+.btn:hover, .save-button:hover, .edit-button:hover, .nav-button:hover {
   color: #212529;
 }
-.btn-check:focus + .btn, .btn-check:focus + .nav-button, .btn:focus, .nav-button:focus {
+.btn-check:focus + .btn, .btn-check:focus + .save-button, .btn-check:focus + .edit-button, .btn-check:focus + .nav-button, .btn:focus, .save-button:focus, .edit-button:focus, .nav-button:focus {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
-.btn:disabled, .nav-button:disabled, .btn.disabled, .disabled.nav-button, fieldset:disabled .btn, fieldset:disabled .nav-button {
+.btn:disabled, .save-button:disabled, .edit-button:disabled, .nav-button:disabled, .btn.disabled, .disabled.save-button, .disabled.edit-button, .disabled.nav-button, fieldset:disabled .btn, fieldset:disabled .save-button, fieldset:disabled .edit-button, fieldset:disabled .nav-button {
   pointer-events: none;
   opacity: 0.65;
 }
@@ -2954,61 +2959,61 @@ textarea.form-control-lg {
   border-color: #0d6efd;
 }
 
-.btn-secondary {
+.btn-secondary, .edit-button {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
 }
-.btn-secondary:hover {
+.btn-secondary:hover, .edit-button:hover {
   color: #fff;
   background-color: #5c636a;
   border-color: #565e64;
 }
-.btn-check:focus + .btn-secondary, .btn-secondary:focus {
+.btn-check:focus + .btn-secondary, .btn-check:focus + .edit-button, .btn-secondary:focus, .edit-button:focus {
   color: #fff;
   background-color: #5c636a;
   border-color: #565e64;
   box-shadow: 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
 }
-.btn-check:checked + .btn-secondary, .btn-check:active + .btn-secondary, .btn-secondary:active, .btn-secondary.active, .show > .btn-secondary.dropdown-toggle {
+.btn-check:checked + .btn-secondary, .btn-check:checked + .edit-button, .btn-check:active + .btn-secondary, .btn-check:active + .edit-button, .btn-secondary:active, .edit-button:active, .btn-secondary.active, .active.edit-button, .show > .btn-secondary.dropdown-toggle, .show > .dropdown-toggle.edit-button {
   color: #fff;
   background-color: #565e64;
   border-color: #51585e;
 }
-.btn-check:checked + .btn-secondary:focus, .btn-check:active + .btn-secondary:focus, .btn-secondary:active:focus, .btn-secondary.active:focus, .show > .btn-secondary.dropdown-toggle:focus {
+.btn-check:checked + .btn-secondary:focus, .btn-check:checked + .edit-button:focus, .btn-check:active + .btn-secondary:focus, .btn-check:active + .edit-button:focus, .btn-secondary:active:focus, .edit-button:active:focus, .btn-secondary.active:focus, .active.edit-button:focus, .show > .btn-secondary.dropdown-toggle:focus, .show > .dropdown-toggle.edit-button:focus {
   box-shadow: 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
 }
-.btn-secondary:disabled, .btn-secondary.disabled {
+.btn-secondary:disabled, .edit-button:disabled, .btn-secondary.disabled, .disabled.edit-button {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
 }
 
-.btn-success {
+.btn-success, .save-button {
   color: #fff;
   background-color: #198754;
   border-color: #198754;
 }
-.btn-success:hover {
+.btn-success:hover, .save-button:hover {
   color: #fff;
   background-color: #157347;
   border-color: #146c43;
 }
-.btn-check:focus + .btn-success, .btn-success:focus {
+.btn-check:focus + .btn-success, .btn-check:focus + .save-button, .btn-success:focus, .save-button:focus {
   color: #fff;
   background-color: #157347;
   border-color: #146c43;
   box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
 }
-.btn-check:checked + .btn-success, .btn-check:active + .btn-success, .btn-success:active, .btn-success.active, .show > .btn-success.dropdown-toggle {
+.btn-check:checked + .btn-success, .btn-check:checked + .save-button, .btn-check:active + .btn-success, .btn-check:active + .save-button, .btn-success:active, .save-button:active, .btn-success.active, .active.save-button, .show > .btn-success.dropdown-toggle, .show > .dropdown-toggle.save-button {
   color: #fff;
   background-color: #146c43;
   border-color: #13653f;
 }
-.btn-check:checked + .btn-success:focus, .btn-check:active + .btn-success:focus, .btn-success:active:focus, .btn-success.active:focus, .show > .btn-success.dropdown-toggle:focus {
+.btn-check:checked + .btn-success:focus, .btn-check:checked + .save-button:focus, .btn-check:active + .btn-success:focus, .btn-check:active + .save-button:focus, .btn-success:active:focus, .save-button:active:focus, .btn-success.active:focus, .active.save-button:focus, .show > .btn-success.dropdown-toggle:focus, .show > .dropdown-toggle.save-button:focus {
   box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
 }
-.btn-success:disabled, .btn-success.disabled {
+.btn-success:disabled, .save-button:disabled, .btn-success.disabled, .disabled.save-button {
   color: #fff;
   background-color: #198754;
   border-color: #198754;
@@ -3376,13 +3381,13 @@ textarea.form-control-lg {
   color: #6c757d;
 }
 
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .nav-button {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .save-button, .btn-group-lg > .edit-button, .btn-group-lg > .nav-button {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   border-radius: 0.3rem;
 }
 
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .nav-button {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .save-button, .btn-group-sm > .edit-button, .btn-group-sm > .nav-button {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   border-radius: 0.2rem;
@@ -3737,34 +3742,58 @@ textarea.form-control-lg {
   display: inline-flex;
   vertical-align: middle;
 }
-.btn-group > .btn, .btn-group > .nav-button,
+.btn-group > .btn, .btn-group > .save-button, .btn-group > .edit-button, .btn-group > .nav-button,
 .btn-group-vertical > .btn,
+.btn-group-vertical > .save-button,
+.btn-group-vertical > .edit-button,
 .btn-group-vertical > .nav-button {
   position: relative;
   flex: 1 1 auto;
 }
-.btn-group > .btn-check:checked + .btn, .btn-group > .btn-check:checked + .nav-button,
+.btn-group > .btn-check:checked + .btn, .btn-group > .btn-check:checked + .save-button, .btn-group > .btn-check:checked + .edit-button, .btn-group > .btn-check:checked + .nav-button,
 .btn-group > .btn-check:focus + .btn,
+.btn-group > .btn-check:focus + .save-button,
+.btn-group > .btn-check:focus + .edit-button,
 .btn-group > .btn-check:focus + .nav-button,
 .btn-group > .btn:hover,
+.btn-group > .save-button:hover,
+.btn-group > .edit-button:hover,
 .btn-group > .nav-button:hover,
 .btn-group > .btn:focus,
+.btn-group > .save-button:focus,
+.btn-group > .edit-button:focus,
 .btn-group > .nav-button:focus,
 .btn-group > .btn:active,
+.btn-group > .save-button:active,
+.btn-group > .edit-button:active,
 .btn-group > .nav-button:active,
 .btn-group > .btn.active,
+.btn-group > .active.save-button,
+.btn-group > .active.edit-button,
 .btn-group > .active.nav-button,
 .btn-group-vertical > .btn-check:checked + .btn,
+.btn-group-vertical > .btn-check:checked + .save-button,
+.btn-group-vertical > .btn-check:checked + .edit-button,
 .btn-group-vertical > .btn-check:checked + .nav-button,
 .btn-group-vertical > .btn-check:focus + .btn,
+.btn-group-vertical > .btn-check:focus + .save-button,
+.btn-group-vertical > .btn-check:focus + .edit-button,
 .btn-group-vertical > .btn-check:focus + .nav-button,
 .btn-group-vertical > .btn:hover,
+.btn-group-vertical > .save-button:hover,
+.btn-group-vertical > .edit-button:hover,
 .btn-group-vertical > .nav-button:hover,
 .btn-group-vertical > .btn:focus,
+.btn-group-vertical > .save-button:focus,
+.btn-group-vertical > .edit-button:focus,
 .btn-group-vertical > .nav-button:focus,
 .btn-group-vertical > .btn:active,
+.btn-group-vertical > .save-button:active,
+.btn-group-vertical > .edit-button:active,
 .btn-group-vertical > .nav-button:active,
 .btn-group-vertical > .btn.active,
+.btn-group-vertical > .active.save-button,
+.btn-group-vertical > .active.edit-button,
 .btn-group-vertical > .active.nav-button {
   z-index: 1;
 }
@@ -3778,20 +3807,26 @@ textarea.form-control-lg {
   width: auto;
 }
 
-.btn-group > .btn:not(:first-child), .btn-group > .nav-button:not(:first-child),
+.btn-group > .btn:not(:first-child), .btn-group > .save-button:not(:first-child), .btn-group > .edit-button:not(:first-child), .btn-group > .nav-button:not(:first-child),
 .btn-group > .btn-group:not(:first-child) {
   margin-left: -1px;
 }
-.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .btn-group > .nav-button:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .btn-group > .save-button:not(:last-child):not(.dropdown-toggle), .btn-group > .edit-button:not(:last-child):not(.dropdown-toggle), .btn-group > .nav-button:not(:last-child):not(.dropdown-toggle),
 .btn-group > .btn-group:not(:last-child) > .btn,
+.btn-group > .btn-group:not(:last-child) > .save-button,
+.btn-group > .btn-group:not(:last-child) > .edit-button,
 .btn-group > .btn-group:not(:last-child) > .nav-button {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.btn-group > .btn:nth-child(n+3), .btn-group > .nav-button:nth-child(n+3),
+.btn-group > .btn:nth-child(n+3), .btn-group > .save-button:nth-child(n+3), .btn-group > .edit-button:nth-child(n+3), .btn-group > .nav-button:nth-child(n+3),
 .btn-group > :not(.btn-check) + .btn,
+.btn-group > :not(.btn-check) + .save-button,
+.btn-group > :not(.btn-check) + .edit-button,
 .btn-group > :not(.btn-check) + .nav-button,
 .btn-group > .btn-group:not(:first-child) > .btn,
+.btn-group > .btn-group:not(:first-child) > .save-button,
+.btn-group > .btn-group:not(:first-child) > .edit-button,
 .btn-group > .btn-group:not(:first-child) > .nav-button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -3808,12 +3843,12 @@ textarea.form-control-lg {
   margin-right: 0;
 }
 
-.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > .nav-button + .dropdown-toggle-split {
+.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > .save-button + .dropdown-toggle-split, .btn-group-sm > .edit-button + .dropdown-toggle-split, .btn-group-sm > .nav-button + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
 }
 
-.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > .nav-button + .dropdown-toggle-split {
+.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > .save-button + .dropdown-toggle-split, .btn-group-lg > .edit-button + .dropdown-toggle-split, .btn-group-lg > .nav-button + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -3823,22 +3858,26 @@ textarea.form-control-lg {
   align-items: flex-start;
   justify-content: center;
 }
-.btn-group-vertical > .btn, .btn-group-vertical > .nav-button,
+.btn-group-vertical > .btn, .btn-group-vertical > .save-button, .btn-group-vertical > .edit-button, .btn-group-vertical > .nav-button,
 .btn-group-vertical > .btn-group {
   width: 100%;
 }
-.btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > .nav-button:not(:first-child),
+.btn-group-vertical > .btn:not(:first-child), .btn-group-vertical > .save-button:not(:first-child), .btn-group-vertical > .edit-button:not(:first-child), .btn-group-vertical > .nav-button:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) {
   margin-top: -1px;
 }
-.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .nav-button:not(:last-child):not(.dropdown-toggle),
+.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .save-button:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .edit-button:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .nav-button:not(:last-child):not(.dropdown-toggle),
 .btn-group-vertical > .btn-group:not(:last-child) > .btn,
+.btn-group-vertical > .btn-group:not(:last-child) > .save-button,
+.btn-group-vertical > .btn-group:not(:last-child) > .edit-button,
 .btn-group-vertical > .btn-group:not(:last-child) > .nav-button {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.btn-group-vertical > .btn ~ .btn, .btn-group-vertical > .nav-button ~ .btn, .btn-group-vertical > .btn ~ .nav-button, .btn-group-vertical > .nav-button ~ .nav-button,
+.btn-group-vertical > .btn ~ .btn, .btn-group-vertical > .save-button ~ .btn, .btn-group-vertical > .btn ~ .save-button, .btn-group-vertical > .save-button ~ .save-button, .btn-group-vertical > .edit-button ~ .btn, .btn-group-vertical > .edit-button ~ .save-button, .btn-group-vertical > .btn ~ .edit-button, .btn-group-vertical > .save-button ~ .edit-button, .btn-group-vertical > .edit-button ~ .edit-button, .btn-group-vertical > .nav-button ~ .btn, .btn-group-vertical > .nav-button ~ .save-button, .btn-group-vertical > .nav-button ~ .edit-button, .btn-group-vertical > .btn ~ .nav-button, .btn-group-vertical > .save-button ~ .nav-button, .btn-group-vertical > .edit-button ~ .nav-button, .btn-group-vertical > .nav-button ~ .nav-button,
 .btn-group-vertical > .btn-group:not(:first-child) > .btn,
+.btn-group-vertical > .btn-group:not(:first-child) > .save-button,
+.btn-group-vertical > .btn-group:not(:first-child) > .edit-button,
 .btn-group-vertical > .btn-group:not(:first-child) > .nav-button {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -4812,7 +4851,7 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn .badge, .nav-button .badge {
+.btn .badge, .save-button .badge, .edit-button .badge, .nav-button .badge {
   position: relative;
   top: -1px;
 }
@@ -6251,7 +6290,7 @@ textarea.form-control-lg {
   background-color: currentColor;
   opacity: 0.5;
 }
-.placeholder.btn::before, .placeholder.nav-button::before {
+.placeholder.btn::before, .placeholder.save-button::before, .placeholder.edit-button::before, .placeholder.nav-button::before {
   display: inline-block;
   content: "";
 }
@@ -7094,7 +7133,7 @@ textarea.form-control-lg {
   margin-left: 0.25rem !important;
 }
 
-.mx-2, .nav-button {
+.mx-2, .save-button, .edit-button, .nav-button {
   margin-right: 0.5rem !important;
   margin-left: 0.5rem !important;
 }
@@ -7129,7 +7168,7 @@ textarea.form-control-lg {
   margin-bottom: 0.25rem !important;
 }
 
-.my-2 {
+.my-2, .edit-content {
   margin-top: 0.5rem !important;
   margin-bottom: 0.5rem !important;
 }

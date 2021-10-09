@@ -42,3 +42,21 @@
     @extend .mx-2;
     @extend .col-sm-1;
 }
+
+.edit-content {
+    @extend .form-control;
+    @extend .col-sm-3;
+    @extend .my-2;
+}
+
+.edit-button {
+    @extend .btn;
+    @extend .btn-secondary;
+    @extend .mx-2;
+}
+
+.save-button {
+    @extend .btn;
+    @extend .btn-success;
+    @extend .mx-2;
+}
