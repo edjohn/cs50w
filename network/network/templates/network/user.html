@@ -1,0 +1,21 @@
+{% extends "network/posts.html" %}
+
+{% block header %}
+    <h2 class="text-primary my-3">{{ page_user.username }}</h2>
+    <p class="text-secondary">Followed by {{ page_user.followers.count }} users</p>
+    <p class="text-secondary">Following {{ page_user.followed_users.count }} users</p>
+{% endblock %}
+
+{% block footer %}
+    {% if request.user != page_user %}
+        {% if followed %}
+            <form action="{% url 'unfollow' page_user.id %}">
+                <button class="btn btn-danger my-2">Unfollow</button>
+            </form>
+        {% else %}
+            <form action="{% url 'follow' page_user.id %}">
+                <button class="btn btn-primary my-2">Follow</button>
+            </form>
+        {% endif %}
+    {% endif %}
+{% endblock %}

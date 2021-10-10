@@ -1,0 +1,38 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% load tz %}
+
+{% block script %}
+    <script src="{% static 'network/posts.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    {% block header %}
+    {% endblock %}
+
+    {% for post in posts %}
+        <div class="post" data-id={{ post.id }}>
+            <span class="post-info">Posted by <a href="{% url 'user' post.user.id %}">{{ post.user }}</a> at {{ post.creation_date|timezone:"America/Los_Angeles" }}</span>
+            <p class="post-content">{{ post.content }}</p>
+            {% if user.is_authenticated %}
+                <input class="like-icon" type="image" src="{% static 'network/like-icon-empty.png' %}"/>
+            {% endif %}
+            <span class="post-likes col-sm-2">{{ post.post_likes.count }} likes</span>
+            {% if user == post.user %}
+                <button class="edit-button">Edit</button>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div class="pagination row justify-content-center">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}" class="nav-button">Previous Page</a>
+        {% endif %}
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}" class="nav-button">Next Page</a>
+        {% endif %}
+    </div>
+
+    {% block footer %}
+    {% endblock %}
+{% endblock %}
