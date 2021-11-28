@@ -1,0 +1,49 @@
+{% extends "iron_arms/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'iron_arms/scripts/reviews.js' %}"></script>
+    <script src="{% static 'iron_arms/scripts/index.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <section>
+        <p class="motto bg-gradient-primary">The ultimate old school gym experience.</p>
+
+        <div class="row justify-content-center">
+            <div class="col col-md-3">
+                <img class="img-fluid" src="{% static 'iron_arms/images/main_image.jpg' %}" />
+            </div>
+        </div>
+
+        <p class="motto">Simple. Accessible. Affordable.</p>
+        <p class="alt-info-text">24 hour access.</p>
+        <p class="alt-info-text">Top of the line equipment.</p>
+        <p class="alt-info-text">Specialized gear and tools.</p>
+        <p class="alt-info-text">Free Preworkout.</p>
+        <p class="alt-info-text">Unrivaled atmosphere.</p>
+        <p class="info-text">And that's hardly scratching the surface.</p>
+
+        <div class="row justify-content-center align-items-center">
+            <button class="col-1 carousel-prev p-0" type="button" data-bs-target="#review-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <div id="review-carousel" class="carousel slide col-9 col-md-7" data-bs-ride="carousel">
+                <div class="carousel-indicators mb-2">
+                </div>
+                <div class="carousel-inner mx-auto reviews">
+                </div>
+            </div>
+            <button class="col-1 carousel-next p-0" type="button" data-bs-target="#review-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+
+        <p class="alt-info-text">
+            Sign up now for $45 and a monthly fee of just $35.
+        </p>
+        <p class="info-text">
+            No hidden fees. Cancel at any time.
+        </p>
+    </section>
+{% endblock %}

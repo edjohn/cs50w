@@ -1,0 +1,198 @@
+@import "../bootstrap-5.1.3/scss/_functions";
+@import "../bootstrap-5.1.3/scss/_variables";
+$primary: $red-500;
+$secondary: $red-200;
+$tertiary: $red-800;
+$custom-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "tertiary": $tertiary,
+);
+$theme-colors: map-merge($theme-colors, $custom-colors);
+$nav-link-hover-color: $white;
+$link-decoration: none;
+@import "../bootstrap-5.1.3/scss/bootstrap";
+
+$metal-font: "Metal Mania", cursive;
+$bebas-font: "Bebas Neue", cursive;
+$opensans-font: "Open Sans", sans-serif;
+
+@mixin text($font-family, $color) {
+    font-family: $font-family;
+    color: $color;
+}
+
+.subtitle, .subtitle:hover, .subtitle:focus {
+    @include text($font-family: $metal-font, $color: $white);
+    @extend .text-center;
+    @extend .display-4;
+}
+
+.logo {
+    @extend .img-fluid;
+}
+
+.top-navbar, .bottom-navbar {
+    @extend .row;
+    @extend .navbar;
+}
+
+.bottom-navbar {
+    @extend .fixed-bottom;
+    background-color: $black;
+}
+
+.top-navbar {
+    @extend .mt-2;
+    @extend .mx-2;
+}
+
+#mobile-top-navbar {
+    .nav-link {
+        @include text($font-family: $bebas-font, $color: $primary);
+        @extend .col;
+        @extend .text-center;
+        @extend .mb-4;
+        @extend .mt-4;
+    }
+}
+
+#mobile-nav {
+    background-color: $black;
+}
+
+.nav-link {
+    @include text($font-family: $bebas-font, $color: $primary);
+    @extend .fs-3;
+    @extend .p-2;
+    @extend .border-start;
+    @extend .border-primary;
+    @extend .border-2;
+}
+
+.footer-logo {
+    @extend .text-center;
+    @extend .fs-3;
+    @extend .my-2;
+    a {
+        @include text($font-family: $metal-font, $color: $primary);
+    }
+}
+
+.icon {
+    @extend .fs-2;
+    a {
+        color: $red-500;
+    }
+    span {
+        color: $red-500;
+    }
+}
+
+.motto {
+    @include text($font-family: $bebas-font, $color: $white);
+    @extend .display-6;
+    @extend .text-center;
+    @extend .mt-4;
+    @extend .me-2;
+    @extend .p-1;
+    @extend .bg-gradient-primary;
+    @extend .border;
+}
+
+.info-text, .alt-info-text, .dark-info-text {
+    @extend .my-4;
+    @extend .fs-2;
+    @extend .text-center;
+}
+
+.info-text {
+    @include text($font-family: $bebas-font, $color: $white);
+    @extend .p-1;
+}
+
+.alt-info-text {
+    @include text($font-family: $bebas-font, $color: $primary);
+    @extend .p-1;
+}
+
+.dark-info-text {
+    @include text($font-family: $bebas-font, $color: $black);
+}
+
+.small-info-text {
+    @include text($font-family: $opensans-font, $color: $white);
+    @extend .fs-4;
+    @extend .my-2;
+}
+
+.small-alt-info-text {
+    @include text($font-family: $opensans-font, $color: $primary);
+    @extend .fs-4;
+    @extend .my-2;
+}
+
+.reviews {
+    @extend .text-center;
+    .review {
+        @extend .my-4;
+        position: relative;
+    }
+    p {
+        @include text($font-family: $opensans-font, $color: $white);
+        @extend .fs-5;
+        @extend .mb-0;
+    }
+    span {
+        @include text($font-family: $bebas-font, $color: $red);
+        @extend .fs-2;
+    }
+}
+
+.equipment-wrapper {
+    font-family: "Bebas Neue", cursive;
+    .equipment {
+        span {
+            @extend .small-alt-info-text;
+        }
+        p {
+            @extend .small-info-text;
+        }
+        img {
+            @extend .img-fluid;
+        }
+    }
+}
+
+.search-btn {
+    @include text($font-family: $bebas-font, $color: $black);
+    @extend .btn;
+    background-color: $primary;
+    &:focus, &:hover {
+        color: $white;
+    }
+}
+
+.carousel-prev, .carousel-next {
+    background-color: transparent;
+    border: none;
+}
+
+.bg-gradient-primary {
+    @include gradient-bg($color: $red);
+}
+
+.bg-gradient-black {
+    @include gradient-bg($color: $black);
+}
+
+body {
+    @extend .container-fluid;
+    background: $dark;
+    padding-bottom: 70px;
+}
+
+header {
+    @extend .my-3;
+    @extend .p-2;
+}

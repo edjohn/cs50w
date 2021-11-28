@@ -1,0 +1,25 @@
+{% extends "iron_arms/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <p class="motto">It's time to turn your fitness dreams into reality.</p>
+    <div class="row justify-content-center align-items-center my-2 p-2">
+        <div class="col-sm-5 col-lg-4 mb-2">
+            <img class="img-fluid" src="{% static 'iron_arms/images/alex.jpg' %}">
+        </div>
+        <p class="col-sm-7 small-info-text">
+            Meet the owner, Alex Melisko. 
+            <br><br>
+            This is Bakersfield's #1 personal trainer with 12 years of experience in bodybuilding, marathons, powerlifting, and crossfit.
+            <br><br>
+            We're here to help you attain your fitness goals. We provide free personalized workout and nutrition plans for members-- just ask!
+        </p>
+    </div>
+
+    <div class="text-center mt-4">
+        <p class="alt-info-text">Ready to sign up? We're here to help.</p>
+        <p class="info-text">Monday-Friday: 6:00 AM-12:00 AM</li>
+        <p class="info-text">Saturday: 9:00 AM-5:00 PM</li>
+        <p class="alt-info-text">Contact us at (661) 384-6149 or ring us at the front desk!</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "iron_arms/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <p class="motto">You need it, we've got it.</p>
+    <form action="equipment" method="POST">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-8 col-md-4">
+                {{ form }}
+                <div class="form-text">
+                    e.g. Bench, Squat Rack, Heavy Bag...
+                </div>
+            </div>
+            <div class="col-auto">
+                <button class="search-btn" type="submit">Filter</button>
+            </div>
+        </div>
+    </form>
+    <div class="equipment-wrapper mt-4">
+        {% for item in equipment %}
+            <div class="equipment row justify-content-center align-items-center p-3 my-3">
+                <div class="col-12 col-md-3 me-4">
+                    <img src="{{ item.image.url }}">
+                </div>
+                <div class="col-12 col-md-3">
+                    <span class="row">{{ item.name }}</span>
+                    <p class="row">{{ item.description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
